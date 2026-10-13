@@ -11,6 +11,12 @@ verbatim rather than rewritten as the addon moves.
 
 ## [Unreleased]
 
+## [0.6.20] - 2026-10-13
+
+- **No hitch on login from zone completion news.** Checking which zones you have just completed no longer builds QuestieDB's quest index the moment you enter the world; the check waits for the next frame and runs again once the quests are ready.
+
+- **Tracker lines while the game is still loading a name.** A challenge whose step or name the client has not loaded yet shows what is known, or is left out until it loads, instead of raising a Lua error.
+
 - **A detached tracker with nothing to show leaves the screen.** Its "Forever tracker" title hides with the empty column and comes back, where you left it, as soon as a section has something to show.
 
 ## [0.6.19] - 2026-10-13

@@ -41,7 +41,6 @@ L["Every quest this character can take in the zone, from Questie."] =
 	"Toutes les quêtes que ce personnage peut prendre dans la région, d'après Questie."
 L["Flight paths"] = "Trajets aériens"
 L["Forever tracker"] = "Suivi Forever"
-L["French translation."] = "Traduction française."
 L["Hide from the tracker"] = "Masquer du suivi"
 L["Hints and updates"] = "Astuces et mises à jour"
 L["In the objective tracker"] = "Dans le suivi des objectifs"
@@ -72,6 +71,7 @@ L["Repeatable, holiday and profession quests are left out."] =
 	"Les quêtes répétables, de fête et de métier ne sont pas comptées."
 L["Reputations (Friendly)"] = "Réputations (Amical)"
 L["Show undiscovered areas"] = "Afficher les zones non découvertes"
+L["Smoother login and tracker fixes."] = "Connexion plus fluide et corrections du suivi."
 L["Stop tracking"] = "Ne plus suivre"
 L["Suggest companion addons"] = "Suggérer des addons complémentaires"
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
