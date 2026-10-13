@@ -50,7 +50,7 @@
 ---@field open number
 
 ---@class LegacyTrackerLine
----@field text string
+---@field text? string the step or challenge name; nil while the client has not loaded it
 ---@field detail? string
 ---@field seen string
 

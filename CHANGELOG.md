@@ -11,6 +11,8 @@ verbatim rather than rewritten as the addon moves.
 
 ## [Unreleased]
 
+- **A detached tracker with nothing to show leaves the screen.** Its "Forever tracker" title hides with the empty column and comes back, where you left it, as soon as a section has something to show.
+
 ## [0.6.19] - 2026-10-13
 
 - **Data checked against Forever 1.60.1.70338.** The bundled data is unchanged apart from its build pin.

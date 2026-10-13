@@ -103,7 +103,12 @@ function ModuleMixin:LayoutContents()
 				block:AddObjective("Extra", "...", nil, nil, OBJECTIVE_DASH_STYLE_HIDE)
 				break
 			end
-			block:AddObjective(index, line.detail and (line.detail .. " " .. line.text) or line.text)
+			-- The client can report a step or a challenge name as nil while it is still loading: show what is
+			-- known, and skip a line with nothing to show.
+			local text = line.detail and line.text and (line.detail .. " " .. line.text) or line.text or line.detail
+			if text then
+				block:AddObjective(index, text)
+			end
 		end
 		if not self:LayoutBlock(block) then
 			return

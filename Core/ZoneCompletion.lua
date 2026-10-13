@@ -108,10 +108,13 @@ local quietUntil
 local rewarded = {}
 
 -- The reward follows "What counts", as the percentage does, so 100% on screen is what earns it.
+-- Read deferred: this runs for every zone on every progress change, the first just after entering the world,
+-- and must not build QuestieDB's index there. A cold index reads as pending, so the zone is not complete and
+-- not noted; the build on the next frame announces a change, and the zone is checked again with its quests.
 ---@param uiMapID number
 ---@return boolean
 local function IsComplete(uiMapID)
-	local result = ZoneCompletion.Result(uiMapID)
+	local result = ZoneCompletion.Result(uiMapID, true)
 	---@cast result -nil
 	return ns.Model.CompletionCounts(result) and result.complete
 end

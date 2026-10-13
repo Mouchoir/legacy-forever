@@ -7,7 +7,8 @@ local function check(condition, label)
 end
 
 -- Zones 1 and 2 sit on continent 10, zones 3 and 4 on continent 20, the rest on continent 30. Zone 4 has nothing
--- to count; the others have one area each, zone 1 a dungeon wing too and zone 5 a Legacy objective.
+-- to count; the others have one area each, zone 1 a dungeon wing too and zone 5 a Legacy objective. Zones 1 and 9
+-- have quests.
 ---@param key string
 local function OneArea(key)
 	return {
@@ -39,16 +40,24 @@ local data = {
 		[6] = OneArea("f"),
 		[7] = OneArea("g"),
 		[8] = OneArea("h"),
+		[9] = OneArea("i"),
 	},
 }
 data.completion[5].legacy = { { name = "Step", refs = { { 901, 1 } } } }
-local continents = { 10, 10, 20, 20, 30, 30, 30, 30 }
+local continents = { 10, 10, 20, 20, 30, 30, 30, 30, 30 }
 
 -- Steps done by achievement: the wing is 900, zone 5's Legacy objective 901.
 local explored, stepsDone, taxis = {}, { [900] = false, [901] = false }, {}
 local now = 100
 local live, printed, questReads = {}, {}, {}
 local currentZone = 1
+local completed = { [501] = true }
+-- A cold QuestieDB index: a deferred read sees it as loading (false) instead of building it.
+local questsCold = false
+local zoneQuests = {
+	[1] = { { name = "Wolves", ids = { 501 } }, { name = "Bears", ids = { 502 } } },
+	[9] = { { name = "Boars", ids = { 503 } } },
+}
 local ns = { Data = data }
 ns.Live = {
 	-- One shared table per zone, as the real one caches it.
@@ -69,7 +78,7 @@ ns.Live = {
 			quests = function()
 				return ns.Quests.Zone(uiMapID)
 			end,
-			completed = { [501] = true },
+			completed = completed,
 		}
 	end,
 	ContinentOf = function(uiMapID)
@@ -91,7 +100,10 @@ end
 ns.Quests = {
 	Zone = function(uiMapID, deferred)
 		questReads[#questReads + 1] = deferred == true
-		return uiMapID == 1 and { { name = "Wolves", ids = { 501 } }, { name = "Bears", ids = { 502 } } } or {}
+		if questsCold and deferred then
+			return false
+		end
+		return zoneQuests[uiMapID] or {}
 	end,
 	Status = function()
 		return "ready"
@@ -265,5 +277,30 @@ check(
 	changes == 5 and order[1] == "second" and order[2] == "third",
 	"listeners hear once each, in the order registered"
 )
+
+--[[ News without building QuestieDB's index ]]
+
+-- Checking for news reads every zone's quests deferred, so entering the world never builds the index.
+check(Zones.IsCounted("quests"), "quests count here")
+questReads = {}
+Progress()
+local plain = 0
+for _, wasDeferred in ipairs(questReads) do
+	plain = plain + (wasDeferred and 0 or 1)
+end
+check(#questReads > 0 and plain == 0, "checking for news reads every zone's quests deferred")
+
+-- A cold index reads as loading: a zone otherwise done is pending, not complete and not noted, and when the
+-- index is built (Live's next change) it is news like any other completion.
+questsCold = true
+explored.i = true
+completed[503] = true
+Progress()
+check(#news == 2, "a zone whose quests are still loading is not complete")
+questsCold = false
+Progress()
+check(#news == 3 and news[3] == 9, "once its quests are read, completing the zone is news")
+Progress()
+check(#news == 3, "and only once")
 
 print(("zone_completion_spec: %d checks passed"):format(checks))
