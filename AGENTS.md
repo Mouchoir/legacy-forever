@@ -52,6 +52,8 @@ The same gate CI runs, plus actionlint, zizmor and gitleaks on the workflows and
   or carry a trailing `-- multi-value: <reason>` when expansion is intentional.
 - Commits are signed (`git commit -S`) with the personal email.
 - Release: load `.agents/skills/release/SKILL.md` when preparing or publishing a release.
+  A cloud session cannot push tags: once the version's PR is merged and `.github/workflows/ci.yml` passed on main, start the Release
+  workflow on main with `version` (and `commit` for an older main commit); it tags that commit and publishes.
 - Quality: load `.agents/skills/sift-project/SKILL.md` before cleanup, dead-code or refactoring
   work.
 - Progress is read from the game each time, so it matches the Legacy panel; the bundled data only
