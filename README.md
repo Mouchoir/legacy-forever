@@ -56,7 +56,7 @@ Open the world map, click the addon's icon in the addon compartment, or type `/l
 | `/lf audit` | Compare the bundled data with what the game reports, and list any objective the game doesn't know |
 | `/lf criteria 684` | List every criterion the game reports for one achievement (useful alongside an audit's unknown IDs) |
 
-It's in English and French. More translations are welcome as a pull request, or pasted into a [translation issue](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml), on GitHub: [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has a template.
+It's in English and French. More translations are welcome as a pull request or a [translation issue](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml): [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has a template.
 
 ## Where the locations come from
 
@@ -67,7 +67,7 @@ Everything is generated from the Forever client's own data (via [wago.tools](htt
 - **Zone completion:** what each category counts, and where quests come from and why rares are left out, is in [docs/zone-completion.md](docs/zone-completion.md).
 - **Kills, quests and reputations:** the client ships no spawn or encounter data for these, so they stay unpinned. The exception is Valthalak, a quest whose Blackrock Spire entrance was reviewed by hand. Track the challenge to follow their progress instead.
 
-**Found a wrong or missing objective?** Type `/lf report` and [open an issue](https://github.com/cjber/legacy-forever/issues/new) with what it shows.
+**Found a wrong or missing objective?** Type `/lf report` and paste what it shows into a [wrong objective issue](https://github.com/cjber/legacy-forever/issues/new?template=wrong_objective.yml).
 
 Turn off **Attach to quest tracker** in Settings to drag the shared Forever column. Its position survives `/reload`; turn the setting back on to attach it above your quests.
 
@@ -97,7 +97,7 @@ See [the tooling notes](tools/README.md#type-checking) for the multi-value rule.
 
 CI runs these checks on main pushes and pull requests. Each day a scheduled job checks wago.tools for a newer Forever build and, if the Legacy data differs, opens a pull request with the regenerated `Data/Legacy.lua`.
 
-**Releasing:** move the `[Unreleased]` notes in `CHANGELOG.md` under `## [X.Y.Z] - YYYY-MM-DD`, then `git tag -s vX.Y.Z && git push --tags`. The [BigWigs packager](https://github.com/BigWigsMods/packager) builds the zip and uploads it to GitHub Releases, CurseForge and Wago, with that version's entry (`tools/changelog.py`) as the release notes.
+**Releasing:** move the `[Unreleased]` notes in `CHANGELOG.md` under `## [X.Y.Z] - YYYY-MM-DD`, then `git tag -s vX.Y.Z && git push --tags`, or run the Release workflow on main with `version` set. The [BigWigs packager](https://github.com/BigWigsMods/packager) builds the zip and uploads it to GitHub Releases, CurseForge and Wago, with that version's entry (`tools/changelog.py`) as the release notes.
 
 **Contributing:** read [CONTRIBUTING.md](https://github.com/cjber/.github/blob/main/CONTRIBUTING.md) and this repository's [AGENTS.md](AGENTS.md). Report security problems privately, as [SECURITY.md](https://github.com/cjber/.github/blob/main/SECURITY.md) describes.
 

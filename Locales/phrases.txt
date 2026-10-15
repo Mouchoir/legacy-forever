@@ -23,6 +23,7 @@ L["/lf audit - check the bundled data against the game"] = "/lf audit - check th
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - list what the game reports for one achievement"
 L["/lf report - show a report to copy into a bug report"] = "/lf report - show a report to copy into a bug report"
+L["/lf report gives you text to paste into a bug report."] = "/lf report gives you text to paste into a bug report."
 L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
 	"A grey line in a pin's tooltip when Shortest Path Forever would plot the route."
 L["Areas explored"] = "Areas explored"
@@ -74,7 +75,6 @@ L["Quest"] = "Quest"
 L["Repeatable, holiday and profession quests are left out."] = "Repeatable, holiday and profession quests are left out."
 L["Reputations (Friendly)"] = "Reputations (Friendly)"
 L["Show undiscovered areas"] = "Show undiscovered areas"
-L["Smoother login and tracker fixes."] = "Smoother login and tracker fixes."
 L["Stop tracking"] = "Stop tracking"
 L["Suggest companion addons"] = "Suggest companion addons"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =

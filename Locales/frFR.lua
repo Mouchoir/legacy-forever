@@ -21,6 +21,8 @@ L["/lf report - show a report to copy into a bug report"] =
 L["/lf audit - check the bundled data against the game"] = "/lf audit - compare les données de l'addon avec le jeu"
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - liste ce que le jeu indique pour un haut fait"
+L["/lf report gives you text to paste into a bug report."] =
+	"/lf report vous donne un texte à coller dans un signalement de bug."
 L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
 	"Une ligne grise dans l'infobulle d'un repère quand Shortest Path Forever pourrait tracer l'itinéraire."
 L["Areas explored"] = "Zones explorées"
@@ -74,7 +76,6 @@ L["Repeatable, holiday and profession quests are left out."] =
 	"Les quêtes répétables, de fête et de métier ne sont pas comptées."
 L["Reputations (Friendly)"] = "Réputations (Amical)"
 L["Show undiscovered areas"] = "Afficher les zones non découvertes"
-L["Smoother login and tracker fixes."] = "Connexion plus fluide et corrections du suivi."
 L["Stop tracking"] = "Ne plus suivre"
 L["Suggest companion addons"] = "Suggérer des addons complémentaires"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
