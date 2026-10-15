@@ -102,7 +102,7 @@ CI runs these checks on main pushes and pull requests. Each day a scheduled job 
 
 ## Licence
 
-GPL-3.0-or-later. Game data comes from the client via [wago.tools](https://wago.tools).
+GPL-3.0-or-later. Game data comes from the client via [wago.tools](https://wago.tools). Every input, its pin and licence, and what ships: [THIRD_PARTY.md](THIRD_PARTY.md).
 
 Made by Cillian Berragan · [cillian.dev](https://cillian.dev) · [GitHub](https://github.com/cjber) · [Twitter](https://twitter.com/cjberragan)
 
