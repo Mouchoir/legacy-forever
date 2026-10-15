@@ -2,3 +2,6 @@
 
 # Written by tools/gen_legacy.py; collapsed in diffs and left out of language stats.
 Data/*.lua linguist-generated=true
+
+# Rewritten by tools/check_screenshots.py --record after a render.
+docs/screenshots/scenes.sha256 linguist-generated=true
