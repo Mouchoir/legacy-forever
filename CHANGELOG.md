@@ -11,6 +11,8 @@ verbatim rather than rewritten as the addon moves.
 
 ## [Unreleased]
 
+- **No hitch when you open the map or the tracker draws straight after logging in with Quests counted.** The map's corner, its continent badges and the tracker's zone section no longer read every quest in Questie's database in one go on their first draw. Quests show as not known yet for a moment and fill in on the next frame, as the zone completion check at login already did.
+
 ## [0.6.21] - 2026-10-15
 
 - **Data checked against Forever 1.60.1.70374.** The bundled data is unchanged apart from its build pin.

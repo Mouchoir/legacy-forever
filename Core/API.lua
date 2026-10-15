@@ -49,7 +49,7 @@ local function ZoneSummary(map)
 	if not UnitFactionGroup("player") then
 		return nil, "loading"
 	end
-	local result = assert(ns.ZoneCompletion.Result(map, true))
+	local result = assert(ns.ZoneCompletion.Result(map))
 	---@type LFCategorySummary[]
 	local categories = {}
 	for _, key in ipairs(ns.Model.COMPLETION_CATEGORIES) do

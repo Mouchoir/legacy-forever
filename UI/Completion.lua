@@ -71,6 +71,9 @@ local PENDING_HINTS = {
 ---@param result LegacyZoneResult
 ---@return string
 local function PercentText(result)
+	if not result.percent then
+		return GRAY_FONT_COLOR:WrapTextInColorCode("?")
+	end
 	return ("%d%%"):format(result.percent)
 end
 
@@ -166,7 +169,7 @@ end
 ---@param bar StatusBar
 ---@param result LegacyZoneResult
 local function SetProgress(bar, result)
-	bar:SetValue(result.percent)
+	bar:SetValue(result.percent or 0)
 	bar:SetStatusBarColor((result.complete and GREEN_FONT_COLOR or NORMAL_FONT_COLOR):GetRGB())
 end
 

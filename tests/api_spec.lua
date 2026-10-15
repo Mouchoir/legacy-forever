@@ -82,6 +82,12 @@ ns.Live = {
 			completed = { [501] = true },
 		}
 	end,
+	CurrentZone = function()
+		return 100
+	end,
+	ContinentOf = function(uiMapID)
+		return uiMapID == 100 and 1 or nil
+	end,
 	OnChange = function(callback)
 		live[#live + 1] = callback
 	end,
@@ -298,7 +304,7 @@ summary = assert(API.ZoneSummary(100))
 quests = Category(summary, "quests")
 check(summary.questsStatus == "ready", "quests are ready once built")
 check(quests.scope == "character" and quests.done == 1 and quests.total == 2, "quests count this character's")
--- A synchronous reader (the map, a reward check) building the index first still leaves the waiter notified.
+-- A synchronous reader (the typed audit) building the index first still leaves the waiter notified.
 local scansBefore = scans
 assert(loadfile("Integrations/Quests.lua"))("LegacyForever", ns)
 check(assert(API.ZoneSummary(100)).questsStatus == "loading" and #timers == 1, "a fresh index is cold again")
@@ -393,5 +399,65 @@ for _, size in ipairs({ 12, 14 }) do
 end
 check(ns.Completion.Icon("areas", 14) == "|A:islands-queue-prop-compass:14:14|a", "a near-square compass")
 check(ns.Completion.Icon("taxis", 12) == "|A:flightmaster:12:12|a", "a square atlas fills the square")
+
+-- Every draw path on a cold index: the tracker's section, a badge's tooltip (which reads its continent), the map's
+-- corner and badges. None builds the index during the draw; quests draw as pending, and one build is
+-- scheduled for the next frame.
+local drawn = {}
+-- A frame, font string, block or tooltip that takes any call and keeps the text it is given.
+local function Stub()
+	return setmetatable({}, {
+		__index = function(stub, method)
+			local fn = function(_, ...)
+				for index = 1, select("#", ...) do
+					local value = (select(index, ...))
+					if type(value) == "string" then
+						drawn[#drawn + 1] = value
+					end
+				end
+				return Stub()
+			end
+			rawset(stub, method, fn)
+			return fn
+		end,
+	})
+end
+local function Color()
+	return {
+		r = 1,
+		g = 1,
+		b = 1,
+		GetRGB = function()
+			return 1, 1, 1
+		end,
+		WrapTextInColorCode = function(_, text)
+			return text
+		end,
+	}
+end
+NORMAL_FONT_COLOR, HIGHLIGHT_FONT_COLOR, GREEN_FONT_COLOR, GRAY_FONT_COLOR = Color(), Color(), Color(), Color()
+local function Line(_, text)
+	drawn[#drawn + 1] = text
+end
+GameTooltip_AddBlankLineToTooltip, GameTooltip_AddHighlightLine, GameTooltip_AddNormalLine = Line, Line, Line
+settings.tracker, settings.count_quests = true, true
+assert(loadfile("Integrations/Quests.lua"))("LegacyForever", ns)
+local scansCold = scans
+check(ns.Quests.Cold(), "a fresh index is cold")
+local module = Stub()
+module.Header = { Percent = Stub(), Progress = Stub() }
+zoneTracker.LayoutContents(module)
+ns.Completion.AddSummary(Stub(), 100)
+local corner = assert(ns.ZoneCompletion.Of(100))
+local badges = assert(ns.ZoneCompletion.Continent(1))
+check(scans == scansCold and #timers == 1, "no draw builds a cold index; one build is scheduled")
+check(corner.quests.total == 0 and corner.quests.pending == 1, "the corner draws quests as pending")
+check(badges.zones == 1 and badges.complete == 0, "the continent counts the zone, not complete while its quests load")
+local text = table.concat(drawn, "\n")
+check(text:find("Elwynn Forest", 1, true) and text:find("?", 1, true), "the tracker and tooltip draw quests as ?")
+RunTimers()
+check(scans == scansCold + 1 and not ns.Quests.Cold(), "the next frame builds the index once")
+check(assert(ns.ZoneCompletion.Of(100)).quests.total == 2, "and the next draw counts the zone's quests")
+settings.tracker, settings.count_quests = nil, nil
 
 print(("api_spec: %d checks passed"):format(checks))

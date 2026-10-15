@@ -105,6 +105,9 @@ ns.Quests = {
 		end
 		return zoneQuests[uiMapID] or {}
 	end,
+	Cold = function()
+		return questsCold
+	end,
 	Status = function()
 		return "ready"
 	end,
@@ -163,17 +166,29 @@ check(audit:find("flight path 7 (Ours): not known", 1, true), "the audit lists t
 check(not audit:find("Theirs", 1, true), "the audit leaves out the other side's, as the count does")
 check(audit:find("areas 0/1, taxis 0/1, dungeons 0/1", 1, true), "the audit counts every category, ticked or not")
 
--- Quests: read in full by default, deferred for a caller that must not build the index; the rest of the
--- snapshot (here the turned-in quests) reaches both the same way.
+-- Quests: every result reads them deferred, so no draw builds QuestieDB's index; only the typed audit reads
+-- them in full. The rest of the snapshot (here the turned-in quests) reaches both the same way.
+questReads, printed = {}, {}
+Zones.Audit()
+check(#questReads == 1 and questReads[1] == false, "the audit reads the quests in full")
 questReads = {}
 result = assert(Zones.Result(1))
-check(#questReads == 1 and questReads[1] == false, "a plain result reads the quests in full")
+check(#questReads == 1 and questReads[1] == true, "a result reads the quests deferred")
 check(result.quests.done == 1 and result.quests.total == 2, "one quest of two turned in")
 questReads = {}
-local deferred = assert(Zones.Result(1, true))
-check(#questReads == 1 and questReads[1] == true, "a deferred result reads the quests deferred")
-check(deferred.quests.done == 1 and deferred.quests.total == 2, "a deferred result sees the same turned-in quests")
-check(deferred.done == result.done and deferred.total == result.total, "and the same counts")
+assert(Zones.Of(1))
+Zones.Continent(10)
+check(#questReads == 3, "the map's and tracker's reads read quests")
+for _, wasDeferred in ipairs(questReads) do
+	check(wasDeferred, "and every one of them deferred")
+end
+-- A cold index: the zone, its continent and the tracker's result all read quests as pending, never a build.
+questsCold = true
+local cold = assert(Zones.Of(1))
+check(cold.quests.total == 0 and cold.quests.pending == 1, "a cold index draws the zone's quests as pending")
+check(cold.done == result.done - 1 and cold.total == result.total - 2, "and leaves them out of the counts")
+questsCold = false
+check(assert(Zones.Of(1)).quests.total == 2, "the zone's quests are counted once the index is built")
 LegacyForeverDB = nil
 taxis[7] = nil
 
@@ -302,5 +317,23 @@ Progress()
 check(#news == 3 and news[3] == 9, "once its quests are read, completing the zone is news")
 Progress()
 check(#news == 3, "and only once")
+
+-- Only Quests counted, ticked on a cold index: the zone is still drawn, pending with no percent, and a zone
+-- the tick completes is not news when the build's notice checks again a frame later.
+zoneQuests[4] = { { name = "Kobolds", ids = { 504 } } }
+completed[504] = true
+for _, key in ipairs({ "quests", "areas", "taxis", "dungeons", "raids", "legacy", "reputations" }) do
+	Saved.Set("count_" .. key, false)
+end
+questsCold = true
+Saved.Set("count_quests", true)
+local pending = assert(Zones.Of(4), "a zone whose only counted items are pending is drawn")
+check(pending.total == 0 and pending.pending == 1 and pending.percent == nil, "pending, with no percent yet")
+check(#news == 3, "nothing is complete while the quests load")
+questsCold = false
+Progress()
+check(Zones.Result(4).complete and #news == 3, "a zone completed by ticking Quests is not news once they load")
+Progress()
+check(#news == 3, "nor at the next check")
 
 print(("zone_completion_spec: %d checks passed"):format(checks))
