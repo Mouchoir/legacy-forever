@@ -22,6 +22,7 @@ L["/lf - open the world map and its Legacy menu"] = "/lf - open the world map an
 L["/lf audit - check the bundled data against the game"] = "/lf audit - check the bundled data against the game"
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - list what the game reports for one achievement"
+L["/lf report - show a report to copy into a bug report"] = "/lf report - show a report to copy into a bug report"
 L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
 	"A grey line in a pin's tooltip when Shortest Path Forever would plot the route."
 L["Areas explored"] = "Areas explored"
@@ -50,6 +51,7 @@ L["In the objective tracker"] = "In the objective tracker"
 L["Install Shortest Path Forever to have the route plotted for you."] =
 	"Install Shortest Path Forever to have the route plotted for you."
 L["Legacy"] = "Legacy"
+L["Legacy Forever report"] = "Legacy Forever report"
 L["Legacy objectives"] = "Legacy objectives"
 L["Levels, skills, ranks and anything without a fixed place."] =
 	"Levels, skills, ranks and anything without a fixed place."
@@ -75,6 +77,8 @@ L["Show undiscovered areas"] = "Show undiscovered areas"
 L["Smoother login and tracker fixes."] = "Smoother login and tracker fixes."
 L["Stop tracking"] = "Stop tracking"
 L["Suggest companion addons"] = "Suggest companion addons"
+L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
+	"The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =

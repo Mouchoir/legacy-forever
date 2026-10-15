@@ -10,6 +10,7 @@ end
 SlashCmdList = {}
 local ns = {}
 assert(loadfile("Locales/enUS.lua"))("LegacyForever", ns)
+assert(loadfile("Core/SafeCall.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Core.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Saved.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Model.lua"))("LegacyForever", ns)
@@ -136,7 +137,8 @@ check(calls.map == 1 and calls.menu == 1 and #printed == 0, "a bare /lf opens th
 LegacyForever_OnAddonCompartmentClick()
 check(calls.map == 1 and calls.menu == 2, "the compartment entry opens the menu on the open map")
 SlashCmdList.LEGACYFOREVER("help")
-check(#printed == 3 and calls.menu == 2, "/lf help prints the commands")
+check(#printed == 4 and calls.menu == 2, "/lf help prints the commands")
+check(printed[2] == "/lf report - show a report to copy into a bug report", "the help names /lf report")
 
 -- The Settings page: the same options as subcategories with an index page, every row through
 -- RegisterInitializer (CreateCheckbox and layout:AddInitializer would taint the settings search), and every

@@ -95,7 +95,7 @@ end
 
 local function Changed()
 	for _, callback in ipairs(listeners) do
-		callback()
+		ns.SafeCall("zone completion listener", callback)
 	end
 end
 
@@ -153,7 +153,7 @@ local function CheckNews(silent)
 			-- Someone who has switched zone completion off entirely doesn't want its toasts.
 			if not quiet and (ZoneCompletion.IsShown("map") or ZoneCompletion.IsShown("tracker")) then
 				for _, callback in ipairs(completeListeners) do
-					callback(uiMapID)
+					ns.SafeCall("zone complete listener", callback, uiMapID)
 				end
 			end
 		end
@@ -177,13 +177,18 @@ ns.Saved.OnChange(function(key)
 	end
 end)
 
--- For /lf audit: the current zone's counts against what the game reports. A typed command, so it reads the
--- quests in full and may build QuestieDB's index.
-function ZoneCompletion.Audit()
+-- For /lf audit and /lf report: the current zone's counts against what the game reports, added to `lines`. A typed
+-- command, so it reads the quests in full and may build QuestieDB's index.
+---@param lines string[]
+---@return string[] lines
+function ZoneCompletion.AuditLines(lines)
+	local function Add(line)
+		lines[#lines + 1] = line
+	end
 	local uiMapID = ns.Live.CurrentZone()
 	if not uiMapID then
-		ns.Print("zone completion: no data for the zone you're in.")
-		return
+		Add("zone completion: no data for the zone you're in.")
+		return lines
 	end
 	local zone = ns.Data.completion[uiMapID]
 	local snapshot = ns.Live.ZoneSnapshot(uiMapID)
@@ -193,8 +198,8 @@ function ZoneCompletion.Audit()
 		local category = result[key]
 		parts[#parts + 1] = category and ("%s %d/%d"):format(key, category.done, category.total) or (key .. " -")
 	end
-	ns.Print(("quests from QuestieDB: %s"):format(ns.Quests.Failure() or ns.Quests.Status()))
-	ns.Print(
+	Add(("quests from QuestieDB: %s"):format(ns.Quests.Failure() or ns.Quests.Status()))
+	Add(
 		("zone completion for %s (map %d): %s"):format(
 			C_Map.GetMapInfo(uiMapID).name,
 			uiMapID,
@@ -208,11 +213,11 @@ function ZoneCompletion.Audit()
 	end
 	for key in pairs(snapshot.explored) do
 		if not known[key] then
-			ns.Print("  explored area not in the data: " .. key)
+			Add("  explored area not in the data: " .. key)
 		end
 	end
 	if next(snapshot.explored) == nil then
-		ns.Print("  the game reports nothing explored in this zone")
+		Add("  the game reports nothing explored in this zone")
 	end
 
 	for _, taxi in ipairs(ns.Model.ForFaction(zone.taxis, snapshot.faction, "faction")) do
@@ -220,6 +225,7 @@ function ZoneCompletion.Audit()
 		local state = learned == nil and "unknown until you open a flight master on this continent"
 			or learned and "known"
 			or "not known"
-		ns.Print(("  flight path %d (%s): %s"):format(taxi.node, taxi.name, state))
+		Add(("  flight path %d (%s): %s"):format(taxi.node, taxi.name, state))
 	end
+	return lines
 end

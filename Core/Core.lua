@@ -23,6 +23,13 @@ local _, addon = ...
 ---@field Navigate fun(uiMapID: number, x: number, y: number, title: string)
 ---@field NavigateHint fun(): string
 ---@field Guide fun(uiMapID: number, x: number, y: number, title: string): boolean, ("combat"|"unavailable")?
+---@field SafeCall fun(label: string, fn: function, ...: any): boolean, ... run fn as pcall does (Core/SafeCall.lua)
+---@field RecordError fun(label: string, message: any, stack?: string) keep an error caught another way, for the report
+---@field CaughtErrors fun(): LegacyCaughtError[] this session's caught errors, oldest first, as copies
+---@field CutText fun(text: string, limit: integer): string text cut to `limit` bytes on a UTF-8 boundary, ending "..."
+---@field Report LegacyReportModule the report window (UI/Report.lua)
+---@field AuditLines fun(): string[] what /lf audit prints (Core/Report.lua)
+---@field ReportLines fun(): string[] Legacy Forever's own lines in the report (Core/Report.lua)
 local ns = addon
 local L = ns.L
 
@@ -37,54 +44,11 @@ function ns.Print(msg)
 	DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99" .. ns.TITLE .. "|r " .. msg)
 end
 
--- Compares the bundled data with what the game reports, so a data problem shows
--- up as a count and a list of IDs rather than as a silently missing pin.
----@param data LegacyData
-local function AuditChallenges(data)
-	local visible = ns.Live.Visible()
-	local numVisible = 0
-	for _ in pairs(visible) do
-		numVisible = numVisible + 1
-	end
-	ns.Print(("%d unfinished Legacy challenges listed for this character"):format(numVisible))
-	if numVisible == 0 then
-		ns.Print("the game listed none unfinished; if you're below level 25 or just logged in, try again shortly.")
-		return
-	end
-
-	local checked, missing = 0, {}
-	for uiMapID, entries in pairs(data.zones) do
-		for _, entry in ipairs(entries) do
-			if ns.Model.OwningChallenge(data, entry.achievement, visible) then
-				checked = checked + 1
-				local live = ns.Live.Criteria(entry.achievement)
-				if not (live and live[entry.criteria]) then
-					missing[#missing + 1] = ("%d:%d (map %d)"):format(entry.achievement, entry.criteria, uiMapID)
-				end
-			end
-		end
-	end
-	ns.Print(("%d located objectives checked, %d unknown to the game"):format(checked, #missing))
-	for i = 1, math.min(#missing, 10) do
-		ns.Print("  unknown criteria " .. missing[i])
-	end
-
-	local unlocated = ns.Model.Unlocated(data, visible, ns.Live.Criteria)
-	ns.Print(("%d challenges have objectives with no fixed location"):format(#unlocated))
-	ns.Print(
-		("tracker: %d tracked, Legacy section %s"):format(
-			ns.Tracker.Count(),
-			ns.Tracker.IsAttached() and "in the objective tracker" or "NOT in the objective tracker"
-		)
-	)
-end
-
+-- /lf audit: the same lines /lf report shows (Core/Report.lua), in chat.
 local function Audit()
-	local data = ns.Data
-	local version, build = GetBuildInfo()
-	ns.Print(("data from build %s, client build %s.%s"):format(data.build, version, build))
-	AuditChallenges(data)
-	ns.ZoneCompletion.Audit()
+	for _, line in ipairs(ns.AuditLines()) do
+		ns.Print(line)
+	end
 end
 
 -- Every criterion the game reports for one achievement, for reporting data mismatches.
@@ -120,11 +84,15 @@ end
 
 SLASH_LEGACYFOREVER1 = "/lf"
 SLASH_LEGACYFOREVER2 = "/legacyforever"
-SlashCmdList.LEGACYFOREVER = function(msg)
+local function Slash(msg)
 	local command = strtrim(msg or ""):lower()
 	-- Lenient: "criteria 684", "criteria <684>" and a bare "684" all work.
 	local achievementID = (command:find("^criteria") or command:find("^%d+$")) and tonumber(command:match("%d+"))
-	if command == "audit" then
+	if command == "report" then
+		-- The report is for when something is wrong, so a failing audit still opens it, with the error listed.
+		local ok, lines = ns.SafeCall("report lines", ns.ReportLines)
+		ns.Report.Show(ns.Report.Text(ok and lines or { "audit: failed, see Errors" }))
+	elseif command == "audit" then
 		Audit()
 	elseif achievementID then
 		Criteria(achievementID)
@@ -134,9 +102,13 @@ SlashCmdList.LEGACYFOREVER = function(msg)
 		OpenMenu()
 	else
 		ns.Print(L["/lf - open the world map and its Legacy menu"])
+		ns.Print(L["/lf report - show a report to copy into a bug report"])
 		ns.Print(L["/lf audit - check the bundled data against the game"])
 		ns.Print(L["/lf criteria 684 - list what the game reports for one achievement"])
 	end
+end
+SlashCmdList.LEGACYFOREVER = function(msg)
+	ns.SafeCall("slash command", Slash, msg)
 end
 
 LegacyForever_OnAddonCompartmentClick = OpenMenu

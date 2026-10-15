@@ -127,7 +127,7 @@ C_Map = {
 	end,
 }
 
-for _, file in ipairs({ "Core/Saved.lua", "Core/Model.lua", "Core/ZoneCompletion.lua" }) do
+for _, file in ipairs({ "Core/SafeCall.lua", "Core/Saved.lua", "Core/Model.lua", "Core/ZoneCompletion.lua" }) do
 	assert(loadfile(file))("LegacyForever", ns)
 end
 local Zones, Saved = ns.ZoneCompletion, ns.Saved
@@ -160,16 +160,15 @@ LegacyForeverDB = { zoneCompletion = { count_taxis = true, count_quests = true }
 taxis[7] = false
 result = assert(Zones.Result(1))
 check(result.taxis.total == 1 and result.taxis.left[1] == "Ours", "the other side's flight path is left out")
-Zones.Audit()
-local audit = table.concat(printed, "\n")
+local audit = table.concat(Zones.AuditLines({}), "\n")
 check(audit:find("flight path 7 (Ours): not known", 1, true), "the audit lists the player's flight path")
 check(not audit:find("Theirs", 1, true), "the audit leaves out the other side's, as the count does")
 check(audit:find("areas 0/1, taxis 0/1, dungeons 0/1", 1, true), "the audit counts every category, ticked or not")
 
 -- Quests: every result reads them deferred, so no draw builds QuestieDB's index; only the typed audit reads
 -- them in full. The rest of the snapshot (here the turned-in quests) reaches both the same way.
-questReads, printed = {}, {}
-Zones.Audit()
+questReads = {}
+Zones.AuditLines({})
 check(#questReads == 1 and questReads[1] == false, "the audit reads the quests in full")
 questReads = {}
 result = assert(Zones.Result(1))

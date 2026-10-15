@@ -17,6 +17,7 @@
 Locales\enUS.lua
 Locales\frFR.lua
 Data\Legacy.lua
+Core\SafeCall.lua
 Core\Core.lua
 Core\Art.lua
 Core\Saved.lua
@@ -35,3 +36,5 @@ UI\MapContents.lua
 UI\Map.xml
 UI\Map.lua
 Core\API.lua
+Core\Report.lua
+UI\Report.lua

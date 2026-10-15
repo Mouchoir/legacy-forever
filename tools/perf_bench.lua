@@ -252,6 +252,7 @@ local env = Environment(data)
 print(("bench: %d achievements in %d categories"):format(ACHIEVEMENTS, CATEGORIES))
 
 for _, path in ipairs({
+	"Core/SafeCall.lua",
 	"Core/Saved.lua",
 	"Core/Model.lua",
 	"Core/Live.lua",

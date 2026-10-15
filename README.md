@@ -52,6 +52,7 @@ Open the world map, click the addon's icon in the addon compartment, or type `/l
 | Command | What it does |
 |---|---|
 | `/lf` | Open the world map with the Legacy menu showing (`/lf help` lists these commands) |
+| `/lf report` | Show a report to copy into a bug report: versions, the audit lines, recent errors |
 | `/lf audit` | Compare the bundled data with what the game reports, and list any objective the game doesn't know |
 | `/lf criteria 684` | List every criterion the game reports for one achievement (useful alongside an audit's unknown IDs) |
 
@@ -66,7 +67,7 @@ Everything is generated from the Forever client's own data (via [wago.tools](htt
 - **Zone completion:** what each category counts, and where quests come from and why rares are left out, is in [docs/zone-completion.md](docs/zone-completion.md).
 - **Kills, quests and reputations:** the client ships no spawn or encounter data for these, so they stay unpinned. The exception is Valthalak, a quest whose Blackrock Spire entrance was reviewed by hand. Track the challenge to follow their progress instead.
 
-**Found a wrong or missing objective?** Run `/lf audit` and [open an issue](https://github.com/cjber/legacy-forever/issues/new) with the output.
+**Found a wrong or missing objective?** Type `/lf report` and [open an issue](https://github.com/cjber/legacy-forever/issues/new) with what it shows.
 
 Turn off **Attach to quest tracker** in Settings to drag the shared Forever column. Its position survives `/reload`; turn the setting back on to attach it above your quests.
 

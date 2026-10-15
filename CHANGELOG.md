@@ -12,6 +12,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **`/lf report` gives you something to paste into a bug report.** It opens a small window with the text already selected: your addon and game versions, your character and where you are, the `/lf audit` lines, your other addons, and any errors Legacy Forever caught this session. Press Ctrl+C and paste it. It fits in one message, and you don't need a /reload or a saved-variables file.
+
 - **No hitch when you open the map or the tracker draws straight after logging in with Quests counted.** The map's corner, its continent badges and the tracker's zone section no longer read every quest in Questie's database in one go on their first draw. Quests show as not known yet for a moment and fill in on the next frame, as the zone completion check at login already did.
 
 ## [0.6.21] - 2026-10-15

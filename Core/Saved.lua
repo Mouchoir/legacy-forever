@@ -119,7 +119,7 @@ end
 function Saved.Set(key, value)
 	Home(key)[key] = value
 	for _, callback in ipairs(listeners) do
-		callback(key, value)
+		ns.SafeCall("settings listener", callback, key, value)
 	end
 end
 

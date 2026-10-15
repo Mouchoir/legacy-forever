@@ -27,6 +27,7 @@ end
 SlashCmdList = {}
 local ns = {}
 assert(loadfile("Locales/enUS.lua"))("LegacyForever", ns)
+assert(loadfile("Core/SafeCall.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Core.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Saved.lua"))("LegacyForever", ns)
 function ns.Print(msg)

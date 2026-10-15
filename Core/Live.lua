@@ -174,7 +174,7 @@ local pending = false
 local function Notify()
 	pending = false
 	for _, callback in ipairs(listeners) do
-		callback()
+		ns.SafeCall("progress listener", callback)
 	end
 end
 

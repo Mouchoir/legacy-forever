@@ -128,6 +128,7 @@ CreateFrame = function()
 	}
 end
 
+assert(loadfile("Core/SafeCall.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Live.lua"))("LegacyForever", ns)
 local Live = ns.Live
 

@@ -52,6 +52,7 @@ SlashCmdList = {}
 -- The GlobalStrings UI/Completion.lua labels its categories with.
 DUNGEONS, RAIDS, QUESTS_LABEL = "Dungeons", "Raids", "Quests"
 assert(loadfile("Locales/enUS.lua"))("LegacyForever", ns)
+assert(loadfile("Core/SafeCall.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Core.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Art.lua"))("LegacyForever", ns)
 assert(loadfile("Core/Saved.lua"))("LegacyForever", ns)

@@ -16,6 +16,8 @@ L["%s: %d left"] = "%s : %d restant(s)"
 L["%s: %d of %d areas left"] = "%s : %d zone(s) restante(s) sur %d"
 L["%s: %d of %d zones complete (%d%%)"] = "%s : %d régions terminées sur %d (%d %%)"
 L["/lf - open the world map and its Legacy menu"] = "/lf - ouvre la carte du monde et son menu Héritage"
+L["/lf report - show a report to copy into a bug report"] =
+	"/lf report - affiche un rapport à copier dans un signalement de bug"
 L["/lf audit - check the bundled data against the game"] = "/lf audit - compare les données de l'addon avec le jeu"
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - liste ce que le jeu indique pour un haut fait"
@@ -47,6 +49,7 @@ L["In the objective tracker"] = "Dans le suivi des objectifs"
 L["Install Shortest Path Forever to have the route plotted for you."] =
 	"Installez Shortest Path Forever pour que l'itinéraire soit tracé pour vous."
 L["Legacy"] = "Héritage"
+L["Legacy Forever report"] = "Rapport de Legacy Forever"
 L["Legacy objectives"] = "Objectifs d'héritage"
 L["Levels, skills, ranks and anything without a fixed place."] =
 	"Niveaux, compétences, rangs et tout ce qui n'a pas d'emplacement fixe."
@@ -74,6 +77,8 @@ L["Show undiscovered areas"] = "Afficher les zones non découvertes"
 L["Smoother login and tracker fixes."] = "Connexion plus fluide et corrections du suivi."
 L["Stop tracking"] = "Ne plus suivre"
 L["Suggest companion addons"] = "Suggérer des addons complémentaires"
+L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
+	"Le texte est sélectionné : Ctrl+C (Cmd+C sur Mac) pour le copier, puis collez-le dans votre rapport de bug."
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"La région où vous êtes et ce qu'il reste à y faire. Les défis suivis gardent leur propre section Héritage."
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =

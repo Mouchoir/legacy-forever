@@ -61,4 +61,16 @@ check(Art.Markup("islands-queue-prop-compass", 14) == "|A:islands-queue-prop-com
 check(Art.Markup("wide", 22) == "|A:wide:5:22|a", "markup: a wide atlas keeps its width")
 check(Art.Markup("unknown", 12) == "|A:unknown:12:12|a", "markup: an unknown atlas is square")
 
+-- A file icon: square, with any crop an atlas left reset.
+texture.SetTexCoord = function(self, ...)
+	self.coords = { ... }
+end
+texture.SetTexture = function(self, file)
+	self.file = file
+end
+Art.Icon(texture, "Interface\\AddOns\\LegacyForever\\media\\Icon", 62)
+check(texture.file == "Interface\\AddOns\\LegacyForever\\media\\Icon", "icon: the file")
+check(texture.width == 62 and texture.height == 62, "icon: square")
+check(table.concat(texture.coords, ",") == "0,1,0,1", "icon: the whole file, not an atlas's crop")
+
 print(("art_spec: %d checks passed"):format(checks))
