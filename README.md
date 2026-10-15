@@ -56,7 +56,7 @@ Open the world map, click the addon's icon in the addon compartment, or type `/l
 | `/lf audit` | Compare the bundled data with what the game reports, and list any objective the game doesn't know |
 | `/lf criteria 684` | List every criterion the game reports for one achievement (useful alongside an audit's unknown IDs) |
 
-It's in English and French. More translations are welcome as a pull request, or pasted into an issue, on GitHub: [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has a template.
+It's in English and French. More translations are welcome as a pull request, or pasted into a [translation issue](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml), on GitHub: [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has a template.
 
 ## Where the locations come from
 

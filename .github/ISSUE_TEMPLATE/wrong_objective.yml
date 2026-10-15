@@ -1,0 +1,44 @@
+name: Wrong objective
+description: A Legacy objective is missing, in the wrong place, or counted wrongly on the map or in the tracker.
+labels: [bug]
+body:
+  - type: textarea
+    id: report
+    attributes:
+      label: /lf report
+      description: >-
+        Stand where the objective is (or where the pin wrongly is), type `/lf report`, press Ctrl+C (Cmd+C on a Mac)
+        and paste it here. It has your versions, where you are, the audit lines and any errors. On a version
+        without `/lf report`, paste the `/lf audit` output instead.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: objective
+    attributes:
+      label: Objective
+      description: The challenge and the objective, as the Legacy panel or the pin's tooltip names them.
+      placeholder: Explore Elwynn Forest - Fargodeep Mine
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What's wrong
+      options:
+        - No pin, but the objective has a place
+        - The pin is in the wrong place
+        - Shown as unfinished, but it's done (or the other way round)
+        - The zone completion count is wrong
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What you expected
+      description: >-
+        Where the objective really is, or what the count should be. If the audit lists an unknown criterion
+        (`/lf audit` prints the whole list), the output of `/lf criteria <achievement ID>` helps too.
+    validations:
+      required: true
