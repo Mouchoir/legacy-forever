@@ -117,6 +117,10 @@ CI runs these checks on main pushes and pull requests. Each day a scheduled job 
 
 **Contributing:** read [CONTRIBUTING.md](https://github.com/cjber/.github/blob/main/CONTRIBUTING.md) and this repository's [AGENTS.md](AGENTS.md). Report security problems privately, as [SECURITY.md](https://github.com/cjber/.github/blob/main/SECURITY.md) describes.
 
+## Credits
+
+Brainc3ll translated Legacy Forever into French. Some features were inspired by [Polestar](https://github.com/fitzforge/polestar) by Fitz, such as `/lf report` and the issue forms; no code was copied. Fitz is welcome to use our code. Thanks to Bigabyte and everyone who reported a bug. [THIRD_PARTY.md](THIRD_PARTY.md) has the full list.
+
 ## Licence
 
 GPL-3.0-or-later. Game data comes from the client via [wago.tools](https://wago.tools). Every input, its pin and licence, and what ships: [THIRD_PARTY.md](THIRD_PARTY.md).
