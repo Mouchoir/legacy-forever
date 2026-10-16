@@ -40,6 +40,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # tools/check_locales.py parses each translation with LuaJIT.
+      - run: sudo apt-get update && sudo apt-get install -y luajit
       - name: Lua types and multi-value argument lint
         run: |
           curl -fsSL -o "$RUNNER_TEMP/luals.tgz" \
