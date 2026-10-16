@@ -14,6 +14,8 @@ local _, addon = ...
 ---@field Live LegacyLive
 ---@field Quests LegacyQuests
 ---@field TrackerHost ForeverTrackerHostAPI
+---@field Family ForeverFamilyAPI
+---@field FamilyDB fun(): LegacySavedVariables
 ---@field Tracker LegacyTracker
 ---@field ZoneCompletion LegacyZoneCompletion
 ---@field Completion LegacyCompletion

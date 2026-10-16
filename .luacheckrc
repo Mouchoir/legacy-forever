@@ -3,7 +3,7 @@ max_line_length = 120
 exclude_files = { "tools/.cache/**", ".release/**", ".types/**", "types/**", ".claude/**" }
 ignore = { "212/_.*", "212/self" } -- unused args prefixed with _, and self on mixin handlers
 
-globals = { "ForeverTrackerHost",
+globals = { "ForeverFamily", "ForeverTrackerHost",
 	"LegacyForeverAreaPinMixin",
 	"LegacyForeverMapButtonMixin",
 	"LegacyForeverZoneOverlayMixin",
@@ -44,13 +44,14 @@ files["tests/navigate_spec.lua"] = {
 	globals = { "C_AddOns", "C_Map", "C_SuperTrack", "UiMapPoint", "ShortestPathForever" },
 }
 files["tests/whatsnew_spec.lua"] = { globals = { "C_AddOns", "CreateFrame" } }
-files["tests/settings_spec.lua"] = { globals = { "Settings", "CreateSettingsButtonInitializer", "strtrim", "C_Map", "WorldMapFrame" } }
+files["tests/settings_spec.lua"] = { globals = { "CreateFrame", "Settings", "CreateSettingsButtonInitializer", "strtrim", "C_Map", "WorldMapFrame" } }
 files["tests/api_spec.lua"] = {
 	globals = {
 		"AlertFrame", "C_Map", "C_SuperTrack", "C_Texture", "C_Timer", "CreateAtlasMarkup", "DUNGEONS", "EventUtil", "GetTime", "geterrorhandler",
 		"InCombatLockdown", "LibQuestieDB", "QUESTS_LABEL", "RAIDS", "ShortestPathForever", "UiMapPoint", "UnitClass", "UnitFactionGroup", "UnitRace",
 		"GameTooltip_AddBlankLineToTooltip", "GameTooltip_AddHighlightLine", "GameTooltip_AddNormalLine", "GRAY_FONT_COLOR", "GREEN_FONT_COLOR",
-		"HIGHLIGHT_FONT_COLOR", "NORMAL_FONT_COLOR",
+		"HIGHLIGHT_FONT_COLOR", "NORMAL_FONT_COLOR", "C_AddOns", "WHITE_FONT_COLOR", "GameTooltip", "GameTooltip_SetTitle",
+		"GameTooltip_AddColoredLine", "GameTooltip_AddInstructionLine", "GameTooltip_AddDisabledLine",
 	},
 }
 files["tests/report_spec.lua"] = {

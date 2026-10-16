@@ -1,5 +1,5 @@
 ---@type string, LegacyForeverNamespace
-local _, ns = ...
+local addonName, ns = ...
 local L = ns.L
 
 -- Options -> AddOns -> Legacy Forever: a short index page, then a stock subpage per group so no page grows
@@ -7,7 +7,9 @@ local L = ns.L
 -- delegate: Settings.CreateCheckbox inserts from our code instead, and the settings search reads every layout,
 -- so that tainted it, and a restricted button in its results (Social's Discord Sign In) was then blocked and
 -- blamed on this addon.
--- The Legacy map menu keeps its own toggles. Both ends go through ns.Saved, so the two never disagree.
+-- The Legacy map menu keeps its own toggles. Both ends go through ns.Saved, so the two never disagree; the one
+-- exception is "Suggest my other Forever addons", which the shared Forever addons page writes in the saved
+-- table itself and the map menu reads each time it opens.
 
 local PREFIX = "LegacyForever_"
 
@@ -46,13 +48,13 @@ ns.Saved.OnChange(function(key)
 	Settings.NotifyUpdate(PREFIX .. key)
 end)
 
--- A subpage and its button on the index, which opens it. The index stays out of search: the search finds
--- the settings themselves.
+-- A subpage's button on the index, which opens it. The index stays out of search: the search finds the
+-- settings themselves.
 ---@param category SettingsCategoryMixin
+---@param subcategory SettingsCategoryMixin
 ---@param name string
 ---@return SettingsCategoryMixin
-local function Section(category, name)
-	local subcategory = Settings.RegisterVerticalLayoutSubcategory(category, name)
+local function IndexButton(category, subcategory, name)
 	Settings.RegisterInitializer(
 		category,
 		CreateSettingsButtonInitializer(name, L["Open"], function()
@@ -60,6 +62,14 @@ local function Section(category, name)
 		end, nil, false)
 	)
 	return subcategory
+end
+
+-- A subpage of rows and its button on the index.
+---@param category SettingsCategoryMixin
+---@param name string
+---@return SettingsCategoryMixin
+local function Section(category, name)
+	return IndexButton(category, Settings.RegisterVerticalLayoutSubcategory(category, name), name)
 end
 
 local category = Settings.RegisterVerticalLayoutCategory(ns.TITLE)
@@ -123,13 +133,13 @@ for _, key in ipairs(ns.Model.COMPLETION_CATEGORIES) do
 	AddCheckbox(counts, "count_" .. key, ns.Completion.Label(key), tooltip, usable)
 end
 
-local hints = Section(category, L["Hints and updates"])
-AddCheckbox(hints, "whatsNew", L["What's new after an update"])
-AddCheckbox(
-	hints,
-	"companions",
-	L["Suggest companion addons"],
-	L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."]
-)
+local updates = Section(category, L["Updates"])
+AddCheckbox(updates, "whatsNew", L["What's new after an update"])
+
+-- The Forever addons page is shared by all five addons (UI/ForeverFamily.lua), with "Suggest my other Forever
+-- addons" on it. It reads and writes suggestFamily in the saved table itself; the map menu reads it on opening.
+local familyName = L["Forever addons"]
+local familyPanel = ns.Family.CreatePanel(nil, ns.FamilyDB, addonName)
+IndexButton(category, Settings.RegisterCanvasLayoutSubcategory(category, familyPanel, familyName), familyName)
 
 Settings.RegisterAddOnCategory(category)

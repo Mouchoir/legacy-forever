@@ -154,17 +154,18 @@
 ---@class LegacyDefaults
 ---@field showAreas boolean
 ---@field whatsNew boolean
----@field companions boolean
+---@field suggestFamily boolean
 ---@field zoneCompletion LegacySettings
 
----@class LegacySavedVariables
+---@class LegacySavedVariables : ForeverFamilyDB
 ---@field trackerHost? ForeverTrackerSettings
 ---@field tracked? LegacyTrackingKey[]
 ---@field zoneCompletion? LegacySettings
 ---@field flightPaths? table<string, LegacyFlightRecord>
 ---@field showAreas? boolean
 ---@field whatsNew? boolean
----@field companions? boolean
+---@field suggestFamily? boolean
+---@field companions? boolean Before 0.8; Saved migrates it to suggestFamily.
 ---@field lastVersion? string
 
 ---@type LegacySavedVariables?

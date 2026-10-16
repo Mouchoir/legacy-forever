@@ -21,6 +21,7 @@ Core\SafeCall.lua
 Core\Core.lua
 Core\Art.lua
 Core\Saved.lua
+UI\ForeverFamily.lua
 UI\WhatsNew.lua
 Core\Model.lua
 Core\Live.lua

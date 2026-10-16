@@ -31,6 +31,8 @@ local LABELS = {
 	reputations = L["Reputations (Friendly)"],
 	quests = QUESTS_LABEL,
 }
+-- Adventure Guide Forever's folder, for the zone tooltip's suggestion.
+local ADVENTURE_GUIDE = "AdventureGuideForever"
 -- Names listed per category in a tooltip before "and N more".
 local MAX_LEFT = 6
 -- Remaining names listed under the tracker's counts before "...", matching the challenge section.
@@ -147,6 +149,11 @@ local function AddTooltip(tooltip, name, result)
 			tooltip,
 			L["Dungeons, raids and Legacy objectives count your progress on any character."]
 		)
+	end
+	-- Zone completion counts what is left in a zone; Adventure Guide Forever plans its quests. A quiet line on a
+	-- zone not yet done, while it is not installed, behind the shared "Suggest my other Forever addons" switch.
+	if not result.complete and ns.Family.Hint(ns.FamilyDB(), "LegacyForever.zoneAdventureGuide", ADVENTURE_GUIDE) then
+		GameTooltip_AddDisabledLine(tooltip, L["Adventure Guide Forever routes the quests left in this zone."])
 	end
 end
 

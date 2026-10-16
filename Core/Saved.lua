@@ -21,8 +21,9 @@ local DEFAULTS = {
 	showAreas = true,
 	-- One chat line after an update, never on a first install.
 	whatsNew = true,
-	-- A grey line where another of the Forever addons would do more for you.
-	companions = true,
+	-- A grey line where one of the other Forever addons, not installed, would do more for you. The shared
+	-- Forever addons page (UI/ForeverFamily.lua) reads it from the saved table by this name.
+	suggestFamily = true,
 	zoneCompletion = {
 		-- The map is on so the feature is visible; the tracker takes screen space, so it waits to be asked.
 		map = true,
@@ -45,7 +46,23 @@ local DEFAULTS = {
 ---@return LegacySavedVariables
 local function Root()
 	LegacyForeverDB = LegacyForeverDB or {}
-	return LegacyForeverDB
+	local root = LegacyForeverDB
+	-- Before 0.8 the Shortest Path line had its own switch, "Suggest companion addons". A player who turned it
+	-- off has every family suggestion off, once: the old key goes, so turning the new one back on sticks.
+	if root.companions ~= nil then
+		if root.companions == false then
+			root.suggestFamily = false
+		end
+		root.companions = nil
+	end
+	return root
+end
+
+-- The saved table itself, for the shared Forever addons code, which reads suggestFamily and keeps the
+-- dismissed suggestions (familyDismissed) in it.
+---@return LegacySavedVariables
+function ns.FamilyDB()
+	return Root()
 end
 
 -- A table of the addon's own data in the saved variables. Its owner (the tracked list, the flight path
@@ -69,7 +86,7 @@ function ns.TrackerHostSettings()
 	return root.trackerHost
 end
 
--- Where a switch is saved and where its default is declared: the three top-level switches beside the data,
+-- Where a switch is saved and where its default is declared: the top-level switches beside the data,
 -- every other key (the zone completion surfaces, collapse states and "count_" .. category) under
 -- zoneCompletion, as save files have always had them.
 ---@param key string

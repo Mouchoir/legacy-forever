@@ -117,7 +117,7 @@ local function AddZoneTooltip(tooltip, zone)
 	GameTooltip_AddInstructionLine(tooltip, L["Click the zone to see where."])
 end
 
----@param key 'showAreas'|'whatsNew'|'companions'
+---@param key 'showAreas'|'whatsNew'|'suggestFamily'
 local function ToggleSetting(key)
 	ns.Saved.Set(key, not ns.Saved.Get(key))
 end
@@ -241,12 +241,13 @@ local function BuildMenu(root, uiMapID)
 	ns.Live.LockPanelEntry(root:CreateButton(L["Open the Legacy panel"], ToggleLegacySystemUI))
 	root:CreateDivider()
 	root:CreateCheckbox(L["What's new after an update"], ns.Saved.Get, ToggleSetting, "whatsNew")
-	local companions = root:CreateCheckbox(L["Suggest companion addons"], ns.Saved.Get, ToggleSetting, "companions")
-	companions:SetTooltip(function(tooltip)
-		GameTooltip_SetTitle(tooltip, L["Suggest companion addons"])
+	local family =
+		root:CreateCheckbox(L["Suggest my other Forever addons"], ns.Saved.Get, ToggleSetting, "suggestFamily")
+	family:SetTooltip(function(tooltip)
+		GameTooltip_SetTitle(tooltip, L["Suggest my other Forever addons"])
 		GameTooltip_AddNormalLine(
 			tooltip,
-			L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."]
+			L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."]
 		)
 	end)
 end

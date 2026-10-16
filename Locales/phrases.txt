@@ -23,8 +23,8 @@ L["/lf audit - check the bundled data against the game"] = "/lf audit - check th
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - list what the game reports for one achievement"
 L["/lf report - show a report to copy into a bug report"] = "/lf report - show a report to copy into a bug report"
-L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
-	"A grey line in a pin's tooltip when Shortest Path Forever would plot the route."
+L["Adventure Guide Forever routes the quests left in this zone."] =
+	"Adventure Guide Forever routes the quests left in this zone."
 L["Areas explored"] = "Areas explored"
 L["Attach to quest tracker"] = "Attach to quest tracker"
 L["Click the zone to see where."] = "Click the zone to see where."
@@ -34,22 +34,25 @@ L["Click to open the map. Right-click for options."] = "Click to open the map. R
 L["Click to set a waypoint here."] = "Click to set a waypoint here."
 L["Click to track, with live progress."] = "Click to track, with live progress."
 L["Click to travel here with Shortest Path Forever."] = "Click to travel here with Shortest Path Forever."
+L["Close"] = "Close"
+L["Copy link"] = "Copy link"
+L["Copy the address, then open it in your browser."] = "Copy the address, then open it in your browser."
 L["Defeat"] = "Defeat"
+L["Don't suggest this again"] = "Don't suggest this again"
 L["Drag to move"] = "Drag to move"
 L["Dungeon or raid"] = "Dungeon or raid"
 L["Dungeons, raids and Legacy objectives count your progress on any character."] =
 	"Dungeons, raids and Legacy objectives count your progress on any character."
-L["Enable Shortest Path Forever to have the route plotted for you."] =
-	"Enable Shortest Path Forever to have the route plotted for you."
 L["Every quest this character can take in the zone, from Questie."] =
 	"Every quest this character can take in the zone, from Questie."
 L["Flight paths"] = "Flight paths"
+L["Forever addons"] = "Forever addons"
 L["Forever tracker"] = "Forever tracker"
 L["Hide from the tracker"] = "Hide from the tracker"
-L["Hints and updates"] = "Hints and updates"
 L["In the objective tracker"] = "In the objective tracker"
 L["Install Shortest Path Forever to have the route plotted for you."] =
 	"Install Shortest Path Forever to have the route plotted for you."
+L["Installed, turned off"] = "Installed, turned off"
 L["Legacy"] = "Legacy"
 L["Legacy Forever report"] = "Legacy Forever report"
 L["Legacy objectives"] = "Legacy objectives"
@@ -59,8 +62,10 @@ L["Needs Questie, which lists each zone's quests."] = "Needs Questie, which list
 L["No fixed location"] = "No fixed location"
 L["No unfinished Legacy objectives with a place on this map."] =
 	"No unfinished Legacy objectives with a place on this map."
+L["Not installed"] = "Not installed"
 L["Nothing left to do here"] = "Nothing left to do here"
 L["Objective tracker"] = "Objective tracker"
+L["On"] = "On"
 L["On the world map"] = "On the world map"
 L["Open"] = "Open"
 L["Open a flight master on this continent to check these."] = "Open a flight master on this continent to check these."
@@ -70,22 +75,35 @@ L["Open the map"] = "Open the map"
 L["Part of %s"] = "Part of %s"
 L["Part of %s: %s for exploring every zone"] = "Part of %s: %s for exploring every zone"
 L["Part of %s: %s for the whole challenge"] = "Part of %s: %s for the whole challenge"
+L["Picks quests for your level and plans them into one journey."] =
+	"Picks quests for your level and plans them into one journey."
+L["Plans the cheapest route to your next profession rank."] = "Plans the cheapest route to your next profession rank."
+L["Plans the quickest way anywhere and guides you there, with live boat and zeppelin times."] =
+	"Plans the quickest way anywhere and guides you there, with live boat and zeppelin times."
 L["Quest"] = "Quest"
+L["Quest automation, rare alerts and merchant handling for the default UI."] =
+	"Quest automation, rare alerts and merchant handling for the default UI."
 L["Repeatable, holiday and profession quests are left out."] = "Repeatable, holiday and profession quests are left out."
 L["Reputations (Friendly)"] = "Reputations (Friendly)"
+L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
+	"Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."
 L["Show undiscovered areas"] = "Show undiscovered areas"
+L["Shows the Legacy challenges you can advance in each zone."] =
+	"Shows the Legacy challenges you can advance in each zone."
 L["Stop tracking"] = "Stop tracking"
-L["Suggest companion addons"] = "Suggest companion addons"
+L["Suggest my other Forever addons"] = "Suggest my other Forever addons"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
 	"The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =
 	"The zone you're viewing in the map's corner, and a badge on each zone of a continent map."
+L["This addon"] = "This addon"
 L["This version of Questie isn't supported."] = "This version of Questie isn't supported."
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"Turn this off to drag the shared Forever tracker anywhere on screen."
 L["Undiscovered area"] = "Undiscovered area"
+L["Updates"] = "Updates"
 L["Waiting for Questie and your quest log."] = "Waiting for Questie and your quest log."
 L["Waiting for Questie to finish loading."] = "Waiting for Questie to finish loading."
 L["What counts"] = "What counts"

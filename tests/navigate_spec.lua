@@ -5,22 +5,21 @@ function ns.Print(msg)
 	printed[#printed + 1] = msg
 end
 
--- Shortest Path Forever's install state as the addon list reports it, and the "Suggest companion addons" switch.
-local installed, loaded, suggest = false, false, true
+-- Shortest Path Forever's install state as the addon list reports it ("on", "off" or "missing"), and the saved
+-- table the shared family suggestions (UI/ForeverFamily.lua) read.
+local state = "missing"
 C_AddOns = {
-	DoesAddOnExist = function(name)
-		return name == "ShortestPathForever" and installed
-	end,
 	IsAddOnLoaded = function(name)
-		return name == "ShortestPathForever" and loaded
+		return name == "ShortestPathForever" and state == "on"
+	end,
+	DoesAddOnExist = function(name)
+		return name ~= "ShortestPathForever" or state ~= "missing"
 	end,
 }
-ns.Saved = {
-	Get = function(key)
-		assert(key == "companions", "reads the companions switch")
-		return suggest
-	end,
-}
+local db = {}
+ns.FamilyDB = function()
+	return db
+end
 
 local canSet = true
 C_Map = {
@@ -59,6 +58,7 @@ local function Install()
 end
 
 assert(loadfile("Locales/enUS.lua"))("LegacyForever", ns)
+assert(loadfile("UI/ForeverFamily.lua"))("LegacyForever", ns)
 assert(loadfile("Integrations/Navigate.lua"))("LegacyForever", ns)
 local checks = 0
 local function check(condition, label)
@@ -103,12 +103,20 @@ check(#waypoints == 5, "Shortest Path loaded without its API falls back to the n
 ShortestPathForever, canSet = nil, false
 ns.Navigate(1440, 0.25, 0.5, "Blackfathom Deeps")
 check(#waypoints == 5 and printed[1] == "Blackfathom Deeps is at 25.0, 50.0 in Ashenvale.", "the place goes to chat")
--- The companion hint: install, enable, or nothing once loaded or switched off.
-check(ns.CompanionHint() == "Install Shortest Path Forever to have the route plotted for you.", "missing: install")
-installed = true
-check(ns.CompanionHint() == "Enable Shortest Path Forever to have the route plotted for you.", "disabled: enable")
-loaded = true
-check(ns.CompanionHint() == nil, "loaded: nothing")
-loaded, installed, suggest = false, false, false
+-- The companion hint, behind the shared family switch: install while missing, nothing once installed (on or
+-- turned off: the player chose that), switched off or dismissed.
+local INSTALL = "Install Shortest Path Forever to have the route plotted for you."
+check(ns.CompanionHint() == INSTALL, "missing: install, on by default")
+state = "off"
+check(ns.CompanionHint() == nil, "installed but turned off: nothing")
+state = "on"
+check(ns.CompanionHint() == nil, "on: nothing")
+state = "missing"
+db.suggestFamily = false
 check(ns.CompanionHint() == nil, "switched off: nothing")
+db.suggestFamily = true
+db.familyDismissed = { ["LegacyForever.pinShortestPath"] = true }
+check(ns.CompanionHint() == nil, "dismissed: nothing")
+db.familyDismissed = { ["LegacyForever.zoneAdventureGuide"] = true }
+check(ns.CompanionHint() == INSTALL, "another dismissed suggestion leaves this one")
 print(("navigate_spec: %d checks passed"):format(checks))
