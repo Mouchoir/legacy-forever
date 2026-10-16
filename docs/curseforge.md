@@ -46,14 +46,23 @@ Locations are generated from the Forever client's own data and joined by ID (fli
 
 It only shows what the game already tracks; it doesn't add challenges or change how they count.
 
-## With my other Forever addons
+<!-- forever-family:start -->
 
-All optional:
+## My other Forever addons
 
-- [Shortest Path Forever](https://www.curseforge.com/wow/addons/shortest-path-forever) plans the trip when you click a dungeon or raid pin.
-- [Adventure Guide Forever](https://www.curseforge.com/wow/addons/adventure-guide-forever) shows your zone completion in its guide.
-- [Tweaks Forever](https://www.curseforge.com/wow/addons/tweaks-forever) adds dungeon entrance icons and an unexplored-area tint. Both step aside where Legacy already marks the map.
-- [SkillUp Forever](https://www.curseforge.com/wow/addons/skillup-forever) plans profession levelling in the Professions window.
+Each one works on its own, and they work together when you install more than one.
+
+| Addon | What it does |
+|---|---|
+| [Shortest Path Forever](https://www.curseforge.com/wow/addons/shortest-path-forever) | Plans journeys on foot, by air, by sea and through portals, with directions in the tracker. |
+| [Adventure Guide Forever](https://www.curseforge.com/wow/addons/adventure-guide-forever) | Suggests quests for your level and routes you from one to the next. |
+| [SkillUp Forever](https://www.curseforge.com/wow/addons/skillup-forever) | Shows skill-up chances, recipe costs and levelling routes in the Professions window. |
+| [Legacy Forever](https://www.curseforge.com/wow/addons/legacy-forever) | Shows your unfinished Legacy challenges on the world map and tracks the ones you choose. |
+| [Tweaks Forever](https://www.curseforge.com/wow/addons/tweaks-forever) | Adds quest automation, rare alerts and merchant options to the game's settings. |
+
+<!-- forever-family:end -->
+
+With Shortest Path Forever, clicking a dungeon or raid pin plans the trip there. Adventure Guide Forever shows your zone completion in its guide. Tweaks Forever's dungeon entrance icons and unexplored-area tint step aside where Legacy already marks the map.
 
 Tracked challenges share one tracker column with the other addons' tracker sections, above your quests.
 
