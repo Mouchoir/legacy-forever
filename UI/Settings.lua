@@ -137,7 +137,9 @@ local updates = Section(category, L["Updates"])
 AddCheckbox(updates, "whatsNew", L["What's new after an update"])
 
 -- The Forever addons page is shared by all five addons (UI/ForeverFamily.lua), with "Suggest my other Forever
--- addons" on it. It reads and writes suggestFamily in the saved table itself; the map menu reads it on opening.
+-- addons" on it. ns.Family is bound to Legacy's L, so the page reads in Legacy's translations whichever addon's
+-- copy of the file is in use. It reads and writes suggestFamily in the saved table itself; the map menu reads it
+-- on opening.
 local familyName = L["Forever addons"]
 local familyPanel = ns.Family.CreatePanel(nil, ns.FamilyDB, addonName)
 IndexButton(category, Settings.RegisterCanvasLayoutSubcategory(category, familyPanel, familyName), familyName)

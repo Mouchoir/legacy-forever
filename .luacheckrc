@@ -60,3 +60,4 @@ files["tests/report_spec.lua"] = {
 }
 files["tests/zone_completion_spec.lua"] = { globals = { "C_Map", "GetTime" } }
 read_globals[#read_globals + 1] = "EditModeManagerFrame"
+files["tests/family_locale_spec.lua"] = { globals = { "C_AddOns", "CreateFrame", "GetLocale" } }

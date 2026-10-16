@@ -265,9 +265,9 @@ end
 assert(loadfile("UI/ForeverFamily.lua"))("LegacyForever", ns)
 local panelArgs = {}
 local CreatePanel = ns.Family.CreatePanel
-ns.Family.CreatePanel = function(parent, db, current)
-	panelArgs.db, panelArgs.current = db, current
-	return CreatePanel(parent, db, current)
+ns.Family.CreatePanel = function(parent, db, current, locale)
+	panelArgs.db, panelArgs.current, panelArgs.locale = db, current, locale
+	return CreatePanel(parent, db, current, locale)
 end
 assert(loadfile("UI/Settings.lua"))("LegacyForever", ns)
 check(LegacyForeverDB == nil or next(LegacyForeverDB.zoneCompletion or {}) == nil, "building the page saves nothing")
@@ -394,6 +394,9 @@ check(byKey.trackerAttached:GetValue(), "other addon updates same shared state")
 -- same key. Legacy's own row says "This addon".
 check(byKey.suggestFamily == nil and byKey.companions == nil, "the family switch is the shared page's, not a row")
 check(panelArgs.db == ns.FamilyDB and panelArgs.current == "LegacyForever", "the page gets Legacy's saved table")
+-- ns.Family is the shared file's view bound to Legacy's own L, so its translations show on the page whichever
+-- addon's copy is in use (tests/family_locale_spec.lua).
+check(ns.Family == ForeverFamily.For(ns.L) and panelArgs.locale == nil, "the page reads in Legacy's own strings")
 LegacyForeverDB = { companions = false }
 check(panelArgs.db().suggestFamily == false and LegacyForeverDB.companions == nil, "read through the migration")
 
