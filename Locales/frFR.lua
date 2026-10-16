@@ -21,6 +21,8 @@ L["/lf report - show a report to copy into a bug report"] =
 L["/lf audit - check the bundled data against the game"] = "/lf audit - compare les données de l'addon avec le jeu"
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - liste ce que le jeu indique pour un haut fait"
+L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."] =
+	"Une page Addons Forever dans les options liste mes addons WoW: Forever, avec un lien vers chacun."
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever trace le chemin des quêtes qu'il reste dans cette région."
 L["Areas explored"] = "Zones explorées"
@@ -110,8 +112,6 @@ L["Waiting for Questie to finish loading."] = "En attente de la fin du chargemen
 L["What counts"] = "Ce qui est compté"
 L["What's new after an update"] = "Nouveautés après une mise à jour"
 L["World map"] = "Carte du monde"
-L["Your quest tracker goes back to its own spot when the Forever column is empty."] =
-	"Votre suivi des quêtes retourne à sa place quand la colonne Forever est vide."
 L["Zone complete"] = "Région terminée"
 L["Zone completion"] = "Progression de la région"
 L["Zone completion in the tracker"] = "Progression de la région dans le suivi"

@@ -39,7 +39,7 @@ ns.TITLE = "Legacy Forever"
 -- The Legacy shield: map pins, the map button, menu entries and the zone-completion count all wear it.
 ns.POINTS_ICON = "UI-Legacy-Points-icon-c60"
 -- One sentence for the chat line after an update (WhatsNew.lua): the headline of the release this ships in.
-ns.WHATS_NEW = L["Your quest tracker goes back to its own spot when the Forever column is empty."]
+ns.WHATS_NEW = L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."]
 
 ---@param msg string
 function ns.Print(msg)

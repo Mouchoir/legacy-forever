@@ -12,9 +12,13 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
-- **A Forever addons page in the settings.** Under Legacy Forever in the AddOns settings, *Forever addons* lists my five WoW: Forever addons with what each does and whether you have it: on, installed but turned off, or not installed. *Copy link* shows its CurseForge address to copy into your browser. *Suggest my other Forever addons* on the same page, also in the Legacy map menu, replaces "Suggest companion addons": if you had that off, this starts off too. *Hints and updates* is now *Updates*. The page and its link window are in French on a French client, whichever Forever addon loaded first.
-- **Zone completion suggests Adventure Guide Forever when you don't have it.** On a zone you haven't finished, the zone completion tooltip, on the map and in the tracker, gets a grey line: Adventure Guide Forever routes the quests left in the zone. A pin's Shortest Path Forever line follows the same switch, and only shows while you don't have it: no more "Enable Shortest Path Forever" when you've turned it off.
-- **The README credits the people and addons behind Legacy Forever.** Brainc3ll's French translation, the players who reported bugs or asked for features, and Polestar, which inspired some features, are named, and THIRD_PARTY.md has the full list.
+## [0.8.0] - 2026-10-16
+
+- **A Forever addons page in the settings.** It's under Legacy Forever in the AddOns settings. It lists my five WoW: Forever addons, each with one line on what it does. For the other four it shows whether you have it (on, installed but turned off, or not installed) and a *Copy link* button. That opens a small window with the addon's CurseForge address selected, to copy and open in your browser. The page also has *Suggest my other Forever addons*, which replaces "Suggest companion addons" and is in the Legacy map menu too. If you had the old option off, the new one starts off. The page and its link window are in French on a French client, whichever Forever addon loaded first. The *Hints and updates* page is now *Updates*.
+
+- **Zone completion suggests Adventure Guide Forever when you don't have it.** Hover the zone completion corner of the map, or the zone in the tracker, for a zone you haven't finished. Above the click hint, a grey line says "Adventure Guide Forever routes the quests left in this zone." A pin's Shortest Path Forever line follows the same option. It only shows while Shortest Path Forever isn't installed, so a pin no longer asks you to enable it when you've turned it off.
+
+- **The README now credits the people and addons behind Legacy Forever.** It names Brainc3ll for the French translation, the players who reported bugs or asked for features, and Polestar, which inspired some features. THIRD_PARTY.md has the full list.
 
 ## [0.7.1] - 2026-10-16
 
