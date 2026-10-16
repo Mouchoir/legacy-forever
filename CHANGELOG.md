@@ -12,9 +12,13 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
-- **Legacy Forever lets go of the quest tracker when it has nothing to show.** To fit the Forever sections above your quests, the addon moves the game's quest tracker. It kept holding it there when no section had anything to show or All Objectives was collapsed, which could leave the tracker mid-screen or over the minimap. Now the tracker goes straight back to where the game, Edit Mode or your UI addon put it, and Legacy Forever moves it again only once a section has something to show. The Forever addons share this tracker code and only the first one loaded runs it, so the fix applies once every Forever addon you use has it.
+## [0.7.1] - 2026-10-16
+
+- **Your quest tracker goes back to its own spot when the Forever column is empty.** To fit the Forever sections above your quests, the addon moves the game's quest tracker. It kept holding it there when no section had anything to show or All Objectives was collapsed, which could leave the tracker mid-screen or over the minimap. Now the tracker goes straight back to where the game, Edit Mode or your UI addon put it, and Legacy Forever moves it again only once a section has something to show. The Forever addons share this tracker code and only the first one loaded runs it, so the fix applies once every Forever addon you use has updated.
 
 - **Collapsing All Objectives in combat hides the Forever sections at once.** During a fight they stayed on screen until combat ended. A Forever section that changes in combat now redraws in the space it already has, instead of keeping its old text. The game's quest tracker still isn't moved until combat ends.
+
+- **Data checked against Forever 1.60.1.70425.** No Legacy objective was added, removed or moved in this build, so the map and tracker show the same objectives as before. Only the bundled data's build pin changed.
 
 ## [0.7.0] - 2026-10-15
 

@@ -23,7 +23,6 @@ L["/lf audit - check the bundled data against the game"] = "/lf audit - check th
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - list what the game reports for one achievement"
 L["/lf report - show a report to copy into a bug report"] = "/lf report - show a report to copy into a bug report"
-L["/lf report gives you text to paste into a bug report."] = "/lf report gives you text to paste into a bug report."
 L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
 	"A grey line in a pin's tooltip when Shortest Path Forever would plot the route."
 L["Areas explored"] = "Areas explored"
@@ -92,6 +91,8 @@ L["Waiting for Questie to finish loading."] = "Waiting for Questie to finish loa
 L["What counts"] = "What counts"
 L["What's new after an update"] = "What's new after an update"
 L["World map"] = "World map"
+L["Your quest tracker goes back to its own spot when the Forever column is empty."] =
+	"Your quest tracker goes back to its own spot when the Forever column is empty."
 L["Zone complete"] = "Zone complete"
 L["Zone completion"] = "Zone completion"
 L["Zone completion in the tracker"] = "Zone completion in the tracker"

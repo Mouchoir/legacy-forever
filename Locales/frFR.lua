@@ -21,8 +21,6 @@ L["/lf report - show a report to copy into a bug report"] =
 L["/lf audit - check the bundled data against the game"] = "/lf audit - compare les données de l'addon avec le jeu"
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - liste ce que le jeu indique pour un haut fait"
-L["/lf report gives you text to paste into a bug report."] =
-	"/lf report vous donne un texte à coller dans un signalement de bug."
 L["A grey line in a pin's tooltip when Shortest Path Forever would plot the route."] =
 	"Une ligne grise dans l'infobulle d'un repère quand Shortest Path Forever pourrait tracer l'itinéraire."
 L["Areas explored"] = "Zones explorées"
@@ -93,6 +91,8 @@ L["Waiting for Questie to finish loading."] = "En attente de la fin du chargemen
 L["What counts"] = "Ce qui est compté"
 L["What's new after an update"] = "Nouveautés après une mise à jour"
 L["World map"] = "Carte du monde"
+L["Your quest tracker goes back to its own spot when the Forever column is empty."] =
+	"Votre suivi des quêtes retourne à sa place quand la colonne Forever est vide."
 L["Zone complete"] = "Région terminée"
 L["Zone completion"] = "Progression de la région"
 L["Zone completion in the tracker"] = "Progression de la région dans le suivi"
