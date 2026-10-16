@@ -12,6 +12,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **In your language.** Legacy Forever is now in German, Spanish (Spain and Latin America), Korean, Brazilian Portuguese, Russian, and Simplified and Traditional Chinese, using the game's own words for things like the objective tracker and flight masters. These are machine translated; corrections are welcome through the [translation issue form](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml). The French is still Brainc3ll's translation; the few French lines added since then are machine translated and marked as such in the file. There's no Italian, because the WoW: Forever client has none.
+
 ## [0.8.0] - 2026-10-16
 
 - **A Forever addons page in the settings.** It's under Legacy Forever in the AddOns settings. It lists my five WoW: Forever addons, each with one line on what it does. For the other four it shows whether you have it (on, installed but turned off, or not installed) and a *Copy link* button. That opens a small window with the addon's CurseForge address selected, to copy and open in your browser. The page also has *Suggest my other Forever addons*, which replaces "Suggest companion addons" and is in the Legacy map menu too. If you had the old option off, the new one starts off. The page and its link window are in French on a French client, whichever Forever addon loaded first. The *Hints and updates* page is now *Updates*.

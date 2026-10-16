@@ -29,6 +29,8 @@ read_globals = { "CreateFramePoolCollection", "C_XMLUtil", "CreateSettingsButton
 }
 
 files["Data/Legacy.lua"] = { max_line_length = false }
+-- A translation line is one string, plus a trailing `-- mt` when machine translated (WFA-34): no room to wrap.
+files["Locales/"] = { max_line_length = false }
 files["tests/"] = { std = "+luajit" }
 
 -- Each spec may write only the client APIs it stubs.

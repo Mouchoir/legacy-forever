@@ -220,4 +220,90 @@ locale = "deDE"
 template("LegacyForever", ns)
 check(rawget(ns.L, "Stop tracking") == "Stop tracking", "the template fills L on its own locale")
 
+-- Every translation the TOC loads fills L only on its own client, with keys the template has. Each line formats
+-- with the arguments its English line takes, in the same conversions and order, and keeps every argument: each
+-- sample is distinct, so a dropped or swapped one shows. (tools/check_locales.py checks escapes and the rest.)
+local english = { L = {} }
+local load = assert(loadstring(committed, "Locales/phrases.txt"))
+setfenv(load, {
+	GetLocale = function()
+		return "deDE"
+	end,
+})
+load("LegacyForever", english)
+english = english.L
+check(english["Stop tracking"] == "Stop tracking", "the template's English loads")
+
+local function Conversions(text)
+	local found = {}
+	for conversion in text:gsub("%%%%", ""):gmatch("%%[-+#0]*%d*%.?%d*(%a)") do
+		found[#found + 1] = conversion
+	end
+	return found
+end
+local function Samples(conversions)
+	local args, shown = {}, {}
+	for n, conversion in ipairs(conversions) do
+		if conversion == "s" or conversion == "q" then
+			args[n] = "<" .. n .. ">"
+			shown[#shown + 1] = args[n]
+		elseif conversion:find("[eEfgG]") then
+			args[n] = n + 0.5
+		else
+			args[n] = 40 + n
+			shown[#shown + 1] = tostring(args[n])
+		end
+	end
+	return args, shown
+end
+
+local translations, expected = 0, 0
+local tracked = assert(io.popen("git ls-files Locales"))
+for file in tracked:lines() do
+	if file:find("^Locales/%a%a%u%u%.lua$") and file ~= "Locales/enUS.lua" then
+		expected = expected + 1
+	end
+end
+tracked:close()
+for line in io.lines("LegacyForever.toc") do
+	local code = line:match("^Locales\\(%a%a%u%u)%.lua%s*$")
+	if code and code ~= "enUS" then
+		translations = translations + 1
+		local chunk = assert(loadfile("Locales/" .. code .. ".lua"))
+		local current = "enUS"
+		setfenv(chunk, {
+			GetLocale = function()
+				return current
+			end,
+		})
+		local other = { L = {} }
+		chunk("LegacyForever", other)
+		check(next(other.L) == nil, code .. " leaves L alone on another client")
+		current = code
+		local translated = { L = {} }
+		chunk("LegacyForever", translated)
+		check(next(translated.L) ~= nil, code .. " fills L on its own client")
+		for key, text in pairs(translated.L) do
+			local source = english[key]
+			check(type(source) == "string", ("%s: %q is not in Locales/phrases.txt"):format(code, key))
+			check(type(text) == "string" and text ~= "", ("%s: %q is empty"):format(code, key))
+			local want, got = Conversions(source), Conversions(text)
+			check(
+				table.concat(want, " ") == table.concat(got, " "),
+				("%s: %q takes %s, not %s"):format(code, key, table.concat(want, " "), table.concat(got, " "))
+			)
+			local args, shown = Samples(want)
+			local ok, result = pcall(string.format, text, unpack(args, 1, #want))
+			check(ok and result ~= "", ("%s: %q doesn't format: %s"):format(code, key, tostring(result)))
+			for _, sample in ipairs(shown) do
+				check(result:find(sample, 1, true), ("%s: %q drops an argument"):format(code, key))
+			end
+		end
+	end
+end
+check(
+	translations == expected and translations > 0,
+	("the TOC loads %d of %d translations"):format(translations, expected)
+)
+
 print(("locale_spec: %d checks passed"):format(checks))

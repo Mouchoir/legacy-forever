@@ -15,7 +15,15 @@
 ## AddonCompartmentFunc: LegacyForever_OnAddonCompartmentClick
 
 Locales\enUS.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\esMX.lua
 Locales\frFR.lua
+Locales\koKR.lua
+Locales\ptBR.lua
+Locales\ruRU.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
 Data\Legacy.lua
 Core\SafeCall.lua
 Core\Core.lua

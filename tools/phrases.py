@@ -19,9 +19,10 @@ except ModuleNotFoundError:  # Direct invocation from the tools directory.
 ROOT = Path(__file__).resolve().parent.parent
 PHRASE = re.compile(r'\bL\["((?:\\.|[^"\\])*)"\]')
 HEADER = """\
--- A translation template for Legacy Forever. Save a copy as Locales/deDE.lua (or your locale), change "deDE" below,
--- translate the right-hand side of each line and delete the lines you leave in English. Keep %s, %d and |4...;
--- as they are. Then add Locales\\deDE.lua to LegacyForever.toc, right after Locales\\enUS.lua.
+-- A translation template for Legacy Forever. To correct a language that ships, edit its Locales/<locale>.lua instead.
+-- For a new one, save a copy as Locales/<locale>.lua, change "deDE" below to that locale, translate the right-hand
+-- side of each line and delete the lines you leave in English. Keep %s, %d and |4...; as they are. Then add
+-- Locales\\<locale>.lua to LegacyForever.toc, right after Locales\\enUS.lua.
 local _, ns = ...
 if GetLocale() ~= "deDE" then
 \treturn
