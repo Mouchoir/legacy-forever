@@ -12,7 +12,9 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
-- **In your language.** Legacy Forever is now in German, Spanish (Spain and Latin America), Korean, Brazilian Portuguese, Russian, and Simplified and Traditional Chinese, using the game's own words for things like the objective tracker and flight masters. These are machine translated; corrections are welcome through the [translation issue form](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml). The French is still Brainc3ll's translation; the few French lines added since then are machine translated and marked as such in the file. There's no Italian, because the WoW: Forever client has none.
+## [0.9.0] - 2026-10-16
+
+- **In your language.** Legacy Forever is now in German, Spanish (Spain and Latin America), Korean, Brazilian Portuguese, Russian, and Simplified and Traditional Chinese, using the game's own words for things like the objective tracker and flight masters. These are machine translated; corrections are welcome through the [translation issue form](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml). The French is Brainc3ll's translation. French lines added since then, such as the Forever addons page and the `/lf report` window, are machine translated and end `-- mt` in the file. There's no Italian, because the WoW: Forever client has none.
 
 ## [0.8.0] - 2026-10-16
 

@@ -40,7 +40,7 @@ Open the world map, or click the addon's icon in the addon compartment: the Lega
 - `/lf audit` compares the bundled data with what the game reports.
 - `/lf criteria 684` lists what the game reports for one achievement.
 
-Translated into French by Brainc3ll, and into German, Spanish, Korean, Brazilian Portuguese, Russian and Chinese (machine translated; corrections welcome as a pull request or a [translation issue](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml)). [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has the template.
+Translated into French by Brainc3ll, and into German, Spanish, Korean, Brazilian Portuguese, Russian and Chinese by machine. French lines added since, such as the Forever addons page, are machine translated too. Corrections are welcome as a pull request or a [translation issue](https://github.com/cjber/legacy-forever/issues/new?template=translation.yml): [Locales](https://github.com/cjber/legacy-forever/tree/main/Locales) has the template.
 
 Locations are generated from the Forever client's own data and joined by ID (flight paths by the zone in their name); nothing is scraped from a database site.
 
