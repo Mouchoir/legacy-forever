@@ -48,7 +48,7 @@ It only shows what the game already tracks; it doesn't add challenges or change 
 
 <!-- forever-family:start -->
 
-## My other Forever addons
+## The Forever addons
 
 Each one works on its own, and they work together when you install more than one.
 

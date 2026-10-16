@@ -77,7 +77,7 @@ All optional: [Shortest Path Forever](https://www.curseforge.com/wow/addons/shor
 
 <!-- forever-family:start -->
 
-## My other Forever addons
+## The Forever addons
 
 Each one works on its own, and they work together when you install more than one.
 

@@ -73,7 +73,7 @@ The same gate CI runs, plus actionlint, zizmor and gitleaks on the workflows and
 
 ## Standards
 
-- `wow-forever-addon`: https://github.com/cjber/skills/tree/3094c45cfb6f3d62229e6cbd044678c35a624a1e/wow-forever-addon (UI look,
+- `wow-forever-addon`: https://github.com/cjber/skills/tree/c5071b8fcbca48aaa220027e68ff1110d7f1ca2f/wow-forever-addon (UI look,
   icon, README and store page, CI and release requirements shared by every WoW: Forever addon)
 
 ## Secure UI regression checks
