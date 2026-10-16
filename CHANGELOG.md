@@ -14,6 +14,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 - **Legacy Forever lets go of the quest tracker when it has nothing to show.** To fit the Forever sections above your quests, the addon moves the game's quest tracker. It kept holding it there when no section had anything to show or All Objectives was collapsed, which could leave the tracker mid-screen or over the minimap. Now the tracker goes straight back to where the game, Edit Mode or your UI addon put it, and Legacy Forever moves it again only once a section has something to show. The Forever addons share this tracker code and only the first one loaded runs it, so the fix applies once every Forever addon you use has it.
 
+- **Collapsing All Objectives in combat hides the Forever sections at once.** During a fight they stayed on screen until combat ended. A Forever section that changes in combat now redraws in the space it already has, instead of keeping its old text. The game's quest tracker still isn't moved until combat ends.
+
 ## [0.7.0] - 2026-10-15
 
 - **`/lf report` gives you something to paste into a bug report.** It opens a small window with the text already selected: your addon and game versions, your character and where you are, the `/lf audit` lines, your other addons, and any errors Legacy Forever caught this session. Press Ctrl+C and paste it. It fits in one message, and you don't need a /reload or a saved-variables file. The wrong objective form on GitHub asks for it.
