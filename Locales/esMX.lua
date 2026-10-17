@@ -22,8 +22,6 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - muestra lo que indica el juego para un logro"
 L["/lf report - show a report to copy into a bug report"] =
 	"/lf report - muestra un informe para copiar en un reporte de error"
-L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."] =
-	"Una página en las opciones muestra mis addons de WoW: Forever, con un enlace a cada uno."
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever traza una ruta por las misiones que quedan en esta zona."
 L["Areas explored"] = "Áreas exploradas"
@@ -38,6 +36,7 @@ L["Click to travel here with Shortest Path Forever."] = "Clic para viajar aquí 
 L["Close"] = "Cerrar"
 L["Copy link"] = "Copiar enlace"
 L["Copy the address, then open it in your browser."] = "Copia la dirección y ábrela en tu navegador."
+L["Data checked against Forever 1.60.1.70450."] = "Datos comprobados con Forever 1.60.1.70450."
 L["Defeat"] = "Derrotar"
 L["Don't suggest this again"] = "No volver a sugerir"
 L["Drag to move"] = "Arrastra para mover"

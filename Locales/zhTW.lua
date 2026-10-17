@@ -21,8 +21,6 @@ L["/lf audit - check the bundled data against the game"] = "/lf audit - 將內�
 L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - 列出遊戲對某個成就回報的內容"
 L["/lf report - show a report to copy into a bug report"] = "/lf report - 顯示可複製到錯誤回報中的報告"
-L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."] =
-	"設定中的一個頁面列出了我的WoW: Forever插件，並附有各自的連結。"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever會為此地區剩餘的任務規劃路線。"
 L["Areas explored"] = "已探索區域"
@@ -37,6 +35,7 @@ L["Click to travel here with Shortest Path Forever."] = "點擊使用Shortest Pa
 L["Close"] = "關閉"
 L["Copy link"] = "複製連結"
 L["Copy the address, then open it in your browser."] = "複製該網址，然後在瀏覽器中開啟。"
+L["Data checked against Forever 1.60.1.70450."] = "已按 Forever 1.60.1.70450 核對資料。"
 L["Defeat"] = "擊敗"
 L["Don't suggest this again"] = "不再推薦"
 L["Drag to move"] = "拖曳以移動"

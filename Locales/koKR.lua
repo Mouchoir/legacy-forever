@@ -23,8 +23,6 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - 업적 하나에 대해 게임이 알려주는 내용을 표시합니다"
 L["/lf report - show a report to copy into a bug report"] =
 	"/lf report - 오류 제보에 붙여 넣을 보고서를 표시합니다"
-L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."] =
-	"설정의 한 페이지에서 제 WoW: Forever 애드온 목록과 각 링크를 볼 수 있습니다."
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever는 이 지역에 남은 퀘스트의 경로를 짜 줍니다."
 L["Areas explored"] = "탐험한 구역"
@@ -42,6 +40,7 @@ L["Click to travel here with Shortest Path Forever."] =
 L["Close"] = "닫기"
 L["Copy link"] = "링크 복사"
 L["Copy the address, then open it in your browser."] = "주소를 복사한 후 브라우저에서 여십시오."
+L["Data checked against Forever 1.60.1.70450."] = "Forever 1.60.1.70450 기준으로 데이터를 확인했습니다."
 L["Defeat"] = "처치"
 L["Don't suggest this again"] = "다시 제안하지 않기"
 L["Drag to move"] = "끌어서 이동"

@@ -25,8 +25,6 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - показать, что игра сообщает об одном достижении"
 L["/lf report - show a report to copy into a bug report"] =
 	"/lf report - показать отчет для сообщения об ошибке"
-L["A Forever addons page in the settings lists my WoW: Forever addons, with a link to each."] =
-	"Страница в настройках со списком моих модификаций для WoW: Forever и ссылкой на каждую."
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever проложит маршрут по оставшимся заданиям этой зоны."
 L["Areas explored"] = "Исследованные области"
@@ -46,6 +44,7 @@ L["Close"] = "Закрыть"
 L["Copy link"] = "Копировать ссылку"
 L["Copy the address, then open it in your browser."] =
 	"Скопируйте адрес и откройте его в браузере."
+L["Data checked against Forever 1.60.1.70450."] = "Данные сверены с Forever 1.60.1.70450."
 L["Defeat"] = "Победить"
 L["Don't suggest this again"] = "Больше не предлагать"
 L["Drag to move"] = "Перетащите, чтобы переместить"
