@@ -47,7 +47,6 @@ local CURSOR_REACH = 12
 ---@field scale number
 ---@field zoom number
 ---@field pinScale number
----@field gamepad boolean
 ---@field listeners fun(view: LegacyCanvasView, what: string)[]
 ---@field pools LegacyCanvasPool[]
 local View = {}
@@ -57,6 +56,8 @@ View.__index = View
 local views = {}
 ---@type LegacyCanvasPin?, LegacyCanvasPin?, string?
 local hovered, pressed, pressedButton
+-- Whether the gamepad's map cursor, not the mouse, hovered the pin.
+local hoveredByCursor = false
 ---@type Frame
 local clicks
 
@@ -160,7 +161,6 @@ local function Update(view)
 		mapID, width, height, scale, zoom, pinScale
 	if first then
 		view.shown = true
-		view.gamepad = MapCanvas.Gamepad()
 		clicks:RegisterEvent("GLOBAL_MOUSE_DOWN")
 		clicks:RegisterEvent("GLOBAL_MOUSE_UP")
 		Fire(view, "show")
@@ -171,10 +171,12 @@ local function Update(view)
 	elseif scaled then
 		Fire(view, "scale")
 	end
-	if view.gamepad then
+	-- Under the gamepad interface the map cursor hovers the pin nearest it; it never takes over one the mouse is on.
+	if MapCanvas.Gamepad() and not (hovered and not hoveredByCursor) then
 		local pin = PinAtCursor(view)
 		if pin or (hovered and hovered.view == view) then
 			SetHovered(pin)
+			hoveredByCursor = pin ~= nil
 		end
 	end
 end
@@ -185,8 +187,14 @@ local function Hide(view)
 		SetHovered(nil)
 	end
 	pressed = nil
-	clicks:UnregisterEvent("GLOBAL_MOUSE_DOWN")
-	clicks:UnregisterEvent("GLOBAL_MOUSE_UP")
+	local open = false
+	for _, other in pairs(views) do
+		open = open or (other ~= view and other.shown)
+	end
+	if not open then
+		clicks:UnregisterEvent("GLOBAL_MOUSE_DOWN")
+		clicks:UnregisterEvent("GLOBAL_MOUSE_UP")
+	end
 	if view.shown then
 		view.shown = false
 		Fire(view, "hide")
@@ -221,7 +229,6 @@ function MapCanvas.Watch(map, listener)
 			scale = 1,
 			zoom = 0,
 			pinScale = 1,
-			gamepad = false,
 			listeners = {},
 			pools = {},
 		}, View)
@@ -244,15 +251,6 @@ function MapCanvas.Watch(map, listener)
 		view.listeners[#view.listeners + 1] = listener
 	end
 	return view
-end
-
--- Runs the view's check now, as its next frame would.
----@param map WorldMapFrame
-function MapCanvas.Update(map)
-	local view = views[map]
-	if view then
-		Update(view)
-	end
 end
 
 -- Shows or hides every pin of ours on `map`: combat hides them.
@@ -284,7 +282,6 @@ end
 ---@field levelType? string
 ---@field takesMouse? boolean
 ---@field clicks? boolean whether a left click acts; the right button always goes through to the canvas
----@field marker? string the kind ForeverMapMarkers reports this pin as
 ---@field OnMouseClickAction? fun(self: LegacyCanvasPin, button: string)
 local Pin = {}
 MapCanvas.PinMixin = Pin
@@ -381,6 +378,7 @@ Pool.__index = Pool
 
 local function OnEnter(pin)
 	SetHovered(pin)
+	hoveredByCursor = false
 end
 
 local function OnLeave(pin)
@@ -395,7 +393,7 @@ function Pool:Acquire(...)
 	if not pin then
 		pin = MapCanvas.FrameUnder("Frame", self.view.layer, self.template) --[[@as LegacyCanvasPin]]
 		Mixin(pin, self.mixin)
-		pin.view, pin.marker = self.view, self.marker
+		pin.view = self.view
 		pin:OnLoad()
 		pin:EnableMouse(pin.takesMouse == true)
 		if pin.takesMouse then
@@ -429,11 +427,6 @@ function Pool:ReleaseAll()
 		pin.mapX, pin.mapY = nil, nil
 		self.free[#self.free + 1] = pin
 	end
-end
-
----@return LegacyCanvasPin[]
-function Pool:Active()
-	return self.active
 end
 
 -- A pool of pins on `map`'s view: frames from `template` wearing `mixin`, which builds on MapCanvas.PinMixin. A pool
@@ -490,11 +483,12 @@ end)
 -- first addon to load makes the global table, and each sets one function under its folder name:
 --   ForeverMapMarkers[addonName] = function(map) -> { { x = number, y = number, kind = string }... }
 -- x and y are the shown markers' fractions on map:GetMapID(), in a fresh table; it never errors.
-local registry = ForeverMapMarkers or {}
-ForeverMapMarkers = registry -- taint-ok: addon-owned registry shared by the Forever addons
-registry.LegacyForever = function(map)
+-- Published as a copy with our entry added, never a field written into the table another addon made; readers look
+-- the global up each time, since a later addon replaces it.
+local function OurMarkers(map)
 	local markers, view = {}, views[map]
-	if not (view and view.shown and view.layer:IsShown()) then
+	-- Shown, not hidden for combat, and drawn for the map it shows now (a map just turned redraws on its next frame).
+	if not (view and view.shown and view.layer:IsShown() and view.mapID == map:GetMapID()) then
 		return markers
 	end
 	for _, pool in ipairs(view.pools) do
@@ -509,3 +503,10 @@ registry.LegacyForever = function(map)
 	end
 	return markers
 end
+
+local published = {}
+for addon, markers in pairs(ForeverMapMarkers or {}) do
+	published[addon] = markers
+end
+published.LegacyForever = OurMarkers
+ForeverMapMarkers = published

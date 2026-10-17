@@ -228,6 +228,7 @@ check(#markers == 1 and markers[1].x == 0.25 and markers[1].kind == "legacy", "t
 
 -- On a continent: the zone badge passes every click through to the map, which opens the zone.
 Kit.mapID = 1415
+check(#ForeverMapMarkers.LegacyForever(Kit.map) == 0, "a map just turned to lists nothing until it is drawn")
 Kit.Tick()
 pins = Pins()
 check(#pins == 1 and #Areas() == 0, "turning the map redraws: the continent shows its zone badge")
@@ -289,6 +290,10 @@ SoftCursor.GetRect = function()
 end
 Kit.Tick()
 check(tooltip.owner == nil, "moving the map cursor away leaves the pin")
+Pins()[1]:Run("OnEnter")
+Kit.Tick()
+check(tooltip.owner == Pins()[1], "the map cursor never takes away a pin the mouse is on")
+Pins()[1]:Run("OnLeave")
 
 ns.OpenMapMenu()
 check(button.opened, "/lf opens the map button's menu")
