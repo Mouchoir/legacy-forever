@@ -38,7 +38,6 @@ L["Click to travel here with Shortest Path Forever."] = "Click to travel here wi
 L["Close"] = "Close"
 L["Copy link"] = "Copy link"
 L["Copy the address, then open it in your browser."] = "Copy the address, then open it in your browser."
-L["Data checked against Forever 1.60.1.70450."] = "Data checked against Forever 1.60.1.70450."
 L["Defeat"] = "Defeat"
 L["Don't suggest this again"] = "Don't suggest this again"
 L["Drag to move"] = "Drag to move"
@@ -114,6 +113,8 @@ L["Waiting for Questie to finish loading."] = "Waiting for Questie to finish loa
 L["What counts"] = "What counts"
 L["What's new after an update"] = "What's new after an update"
 L["World map"] = "World map"
+L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
+	"You can now hide its dungeon and raid entrance pins from the Legacy map menu."
 L["Zone complete"] = "Zone complete"
 L["Zone completion"] = "Zone completion"
 L["Zone completion in the tracker"] = "Zone completion in the tracker"

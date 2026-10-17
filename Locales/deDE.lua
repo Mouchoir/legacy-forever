@@ -37,7 +37,6 @@ L["Click to travel here with Shortest Path Forever."] = "Klicken, um mit Shortes
 L["Close"] = "Schließen"
 L["Copy link"] = "Link kopieren"
 L["Copy the address, then open it in your browser."] = "Kopiert die Adresse und öffnet sie dann in Eurem Browser."
-L["Data checked against Forever 1.60.1.70450."] = "Daten mit Forever 1.60.1.70450 abgeglichen."
 L["Defeat"] = "Besiegen"
 L["Don't suggest this again"] = "Nicht mehr vorschlagen"
 L["Drag to move"] = "Ziehen zum Verschieben"
@@ -116,6 +115,8 @@ L["Waiting for Questie to finish loading."] = "Warte, bis Questie fertig geladen
 L["What counts"] = "Was zählt"
 L["What's new after an update"] = "Neuerungen nach einem Update"
 L["World map"] = "Weltkarte"
+L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
+	"Ihr könnt jetzt die Dungeon- und Schlachtzugseingänge über das Vermächtnismenü der Karte ausblenden."
 L["Zone complete"] = "Zone abgeschlossen"
 L["Zone completion"] = "Zonenfortschritt"
 L["Zone completion in the tracker"] = "Zonenfortschritt in der Verfolgung"

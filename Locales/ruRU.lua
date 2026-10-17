@@ -44,7 +44,6 @@ L["Close"] = "Закрыть"
 L["Copy link"] = "Копировать ссылку"
 L["Copy the address, then open it in your browser."] =
 	"Скопируйте адрес и откройте его в браузере."
-L["Data checked against Forever 1.60.1.70450."] = "Данные сверены с Forever 1.60.1.70450."
 L["Defeat"] = "Победить"
 L["Don't suggest this again"] = "Больше не предлагать"
 L["Drag to move"] = "Перетащите, чтобы переместить"
@@ -125,6 +124,8 @@ L["Waiting for Questie to finish loading."] = "Ожидание окончани
 L["What counts"] = "Что учитывается"
 L["What's new after an update"] = "Что нового после обновления"
 L["World map"] = "Карта мира"
+L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
+	"Теперь метки входов в подземелья и рейды можно скрыть в меню старинных испытаний на карте."
 L["Zone complete"] = "Зона пройдена"
 L["Zone completion"] = "Прохождение зоны"
 L["Zone completion in the tracker"] = "Прохождение зоны в отслеживании"

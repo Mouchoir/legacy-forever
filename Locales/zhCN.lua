@@ -35,7 +35,6 @@ L["Click to travel here with Shortest Path Forever."] = "点击使用Shortest Pa
 L["Close"] = "关闭"
 L["Copy link"] = "复制链接"
 L["Copy the address, then open it in your browser."] = "复制该地址，然后在浏览器中打开。"
-L["Data checked against Forever 1.60.1.70450."] = "已按 Forever 1.60.1.70450 核对数据。"
 L["Defeat"] = "击败"
 L["Don't suggest this again"] = "不再推荐"
 L["Drag to move"] = "拖动以移动"
@@ -112,6 +111,8 @@ L["Waiting for Questie to finish loading."] = "正在等待Questie加载完毕�
 L["What counts"] = "计入内容"
 L["What's new after an update"] = "更新后的新内容"
 L["World map"] = "世界地图"
+L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
+	"现在可以在地图的传承菜单中隐藏地下城和团队副本入口标记。"
 L["Zone complete"] = "地区已完成"
 L["Zone completion"] = "地区完成度"
 L["Zone completion in the tracker"] = "在追踪栏中显示地区完成度"

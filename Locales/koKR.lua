@@ -40,7 +40,6 @@ L["Click to travel here with Shortest Path Forever."] =
 L["Close"] = "닫기"
 L["Copy link"] = "링크 복사"
 L["Copy the address, then open it in your browser."] = "주소를 복사한 후 브라우저에서 여십시오."
-L["Data checked against Forever 1.60.1.70450."] = "Forever 1.60.1.70450 기준으로 데이터를 확인했습니다."
 L["Defeat"] = "처치"
 L["Don't suggest this again"] = "다시 제안하지 않기"
 L["Drag to move"] = "끌어서 이동"
@@ -120,6 +119,8 @@ L["Waiting for Questie to finish loading."] = "Questie 불러오기가 끝나기
 L["What counts"] = "집계 항목"
 L["What's new after an update"] = "업데이트 후 신규 내용"
 L["World map"] = "세계 지도"
+L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
+	"이제 지도의 유산 메뉴에서 던전 및 공격대 입구 표시를 숨길 수 있습니다."
 L["Zone complete"] = "지역 완료"
 L["Zone completion"] = "지역 완료도"
 L["Zone completion in the tracker"] = "추적기에 지역 완료도 표시"
