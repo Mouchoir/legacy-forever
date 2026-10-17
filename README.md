@@ -34,7 +34,7 @@ Tick a challenge in the menu to track it.
 
 - **Map button** in the world map's top-right button column: a Legacy shield with a number inside, the unfinished objectives on the map you're viewing. Its menu lists them by challenge, with a tick box to track each one. Challenges with no fixed place are grouped the way the Legacy panel groups them.
 - **Tracker**: a Legacy section in the objective tracker, under the game's own All Objectives header, lists what you track, with live progress. A zone ticked in the map menu tracks just that zone, such as "0/12 Explore Felwood". Click a challenge to open it in the Legacy panel, or right-click to stop tracking it. [How it lists steps](docs/tracker.md).
-- **Map pins** on dungeon and raid entrances, with the challenge each counts toward and its Legacy points. Left-click a pin to travel there: with [Shortest Path Forever](https://www.curseforge.com/wow/addons/shortest-path-forever) it plans the whole journey, otherwise it sets the game's own waypoint.
+- **Map pins** on dungeon and raid entrances, with the challenge each counts toward and its Legacy points. Left-click a pin to travel there: with [Shortest Path Forever](https://www.curseforge.com/wow/addons/shortest-path-forever) it plans the whole journey, otherwise it sets the game's own waypoint. If another addon already marks entrances, the map menu turns these pins off.
 - **Undiscovered areas** are shaded darker in their real shape on the zone map, so you can see where to go at a glance. Hovering one names it and, when a Legacy challenge counts it, shows the challenge, its points and how many of the zone's areas are left. The map menu turns the shading off.
 - **Zone completion**, Guild Wars 2 style: how much of a zone's areas, dungeons, raids and Legacy objectives you've done, as a percentage in the map's corner, a badge on each zone of a continent map and, if you tick it, the tracker. Flight paths, local reputations and, with Questie, quests can be added under "What counts". A finished zone gets a toast and a sound. [What it counts](docs/zone-completion.md).
 - **No fixed location** lists challenges whose remaining work isn't tied to a place, such as levels, skills and ranks.
@@ -119,7 +119,7 @@ CI runs these checks on main pushes and pull requests. Each day a scheduled job 
 
 ## Credits
 
-Brainc3ll translated Legacy Forever into French. Some features were inspired by [Polestar](https://github.com/fitzforge/polestar) by Fitz, such as `/lf report` and the issue forms; no code was copied. Fitz is welcome to use our code. Thanks to Bigabyte and everyone who reported a bug. [THIRD_PARTY.md](THIRD_PARTY.md) has the full list.
+Brainc3ll translated Legacy Forever into French. Some features were inspired by [Polestar](https://github.com/fitzforge/polestar) by Fitz, such as `/lf report` and the issue forms; no code was copied. Fitz is welcome to use our code. Thanks to Bigabyte, overspark and everyone who reported a bug or asked for a feature. [THIRD_PARTY.md](THIRD_PARTY.md) has the full list.
 
 ## Licence
 

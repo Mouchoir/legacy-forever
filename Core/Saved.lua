@@ -19,6 +19,8 @@ ns.Saved = Saved
 local DEFAULTS = {
 	-- The shading is the quickest way to see what a zone still hides.
 	showAreas = true,
+	-- Many map addons already mark every entrance, so the player can hide Legacy's to avoid a second icon there.
+	showEntrances = true,
 	-- One chat line after an update, never on a first install.
 	whatsNew = true,
 	-- A grey line where one of the other Forever addons, not installed, would do more for you. The shared

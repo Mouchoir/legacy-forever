@@ -91,6 +91,7 @@ L["Repeatable, holiday and profession quests are left out."] =
 L["Reputations (Friendly)"] = "Ruf (Freundlich)"
 L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
 	"Zeigt eine unauffällige Zeile, wo eines meiner anderen Forever-Addons helfen würde. Nur für Addons, die Ihr nicht habt."
+L["Show dungeon and raid entrances"] = "Dungeon- und Schlachtzugseingänge anzeigen"
 L["Show undiscovered areas"] = "Unentdeckte Gebiete anzeigen"
 L["Shows the Legacy challenges you can advance in each zone."] =
 	"Zeigt die Vermächtnis-Herausforderungen, die Ihr in jeder Zone voranbringen könnt."
@@ -104,6 +105,8 @@ L["The zone you're viewing in the map's corner, and a badge on each zone of a co
 	"Die angezeigte Zone in der Kartenecke und eine Plakette auf jeder Zone einer Kontinentkarte."
 L["This addon"] = "Dieses Addon"
 L["This version of Questie isn't supported."] = "Diese Version von Questie wird nicht unterstützt."
+L["Turn this off if another addon already marks them. The Legacy map menu still lists them."] =
+	"Schaltet dies aus, wenn ein anderes Addon sie bereits markiert. Das Vermächtnismenü der Karte listet sie weiterhin auf."
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"Deaktiviert dies, um die gemeinsame Forever-Verfolgung frei auf dem Bildschirm zu verschieben."
 L["Undiscovered area"] = "Unentdecktes Gebiet"

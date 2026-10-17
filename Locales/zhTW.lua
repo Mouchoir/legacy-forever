@@ -87,6 +87,7 @@ L["Repeatable, holiday and profession quests are left out."] = "不計入可重�
 L["Reputations (Friendly)"] = "聲望（友好）"
 L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
 	"在我的其他Forever插件能幫上忙的地方顯示一行不顯眼的提示。僅限你尚未安裝的插件。"
+L["Show dungeon and raid entrances"] = "顯示地城和團隊入口"
 L["Show undiscovered areas"] = "顯示未發現的區域"
 L["Shows the Legacy challenges you can advance in each zone."] =
 	"顯示每個地區中你可以推進的傳承挑戰。"
@@ -100,6 +101,8 @@ L["The zone you're viewing in the map's corner, and a badge on each zone of a co
 	"地圖角落顯示目前查看的地區，大陸地圖上的每個地區顯示一個徽章。"
 L["This addon"] = "本插件"
 L["This version of Questie isn't supported."] = "不支援此版本的Questie。"
+L["Turn this off if another addon already marks them. The Legacy map menu still lists them."] =
+	"如果其他插件已經標記了入口，請關閉此項。地圖的傳承選單仍會列出它們。"
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"關閉後可將共用的Forever追蹤器拖到畫面上任意位置。"
 L["Undiscovered area"] = "未發現的區域"

@@ -44,5 +44,6 @@ Credit for the ideas, translations and reports behind the addon.
 | [Polestar](https://github.com/fitzforge/polestar) by Fitz | From cjber/adventure-guide-forever's issues: `/lf report` with its copy box and caught errors (#156), the issue forms (#157), the zip check (#158), `tools/doctor.py` (#160), the stale-screenshot check (#161), this file (#162), the "For addon authors" changelog subsection (#163) and `.editorconfig` (#165). | GPL-3.0. Inspired only; no code was copied. Fitz is welcome to use our code. |
 | Brainc3ll | The French translation (#99) | |
 | Bigabyte | Found the quest tracker shifting when moved in Edit Mode (#103) | |
+| overspark | Asked on CurseForge for a way to hide the dungeon and raid entrance pins, which became *Show dungeon and raid entrances* (#139) | |
 
 Thanks also to everyone else who reported a bug, here or on CurseForge.

@@ -78,6 +78,12 @@ local map = Section(category, L["World map"])
 AddCheckbox(map, "showAreas", L["Show undiscovered areas"])
 AddCheckbox(
 	map,
+	"showEntrances",
+	L["Show dungeon and raid entrances"],
+	L["Turn this off if another addon already marks them. The Legacy map menu still lists them."]
+)
+AddCheckbox(
+	map,
 	"map",
 	L["On the world map"],
 	L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."]

@@ -12,6 +12,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **You can hide Legacy's dungeon and raid entrances on the world map.** Many map addons already mark every entrance, so Legacy's portal with its shield was a second icon in the same spot. Untick *Show dungeon and raid entrances* in the Legacy map menu, or on the World map page under Options > AddOns > Legacy Forever, and the entrance pins go at once. Everything else stays: other pins, the continent zone badges and the undiscovered-area shading. The map button still counts the entrances and its menu still lists them, so you can still track them. It's on by default; thanks to overspark for the idea.
+
 ## [0.9.1] - 2026-10-17
 
 - **Data checked against Forever 1.60.1.70450.** No Legacy objective was added, removed or moved in this build, so the map and tracker show the same objectives as before. Only the bundled data's build pin changed.

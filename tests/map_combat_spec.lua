@@ -1,7 +1,7 @@
 -- Load UI/Map.lua through its normal addon-loaded callback and exercise the real provider.
 -- This catches protected MapCanvas calls without copying the implementation into the test.
 local combat, removed, acquired, hidden = false, 0, 0, 0
-local regenCallback, provider, eventCallback
+local regenCallback, provider, eventCallback, savedListener
 
 local function text(value)
 	return setmetatable({ value = value }, {
@@ -117,7 +117,9 @@ local ns = {
 		Get = function()
 			return false
 		end,
-		OnChange = function() end,
+		OnChange = function(callback)
+			savedListener = callback
+		end,
 	},
 	Live = {
 		Visible = function()
@@ -151,4 +153,12 @@ assert(removed == 0 and acquired == 0 and hidden == 4, "combat refresh touched p
 combat = false
 eventCallback(nil, "PLAYER_REGEN_ENABLED")
 assert(removed == 2 and acquired == 1, "regen event did not rebuild and acquire pins exactly once")
+-- The map switches redraw the pins at once; any other switch leaves them alone.
+assert(savedListener, "UI/Map.lua did not listen for switches")
+savedListener("whatsNew", false)
+assert(removed == 2 and acquired == 1, "a switch the map does not draw from redrew it")
+savedListener("showEntrances", false)
+assert(removed == 4 and acquired == 2, "turning entrances off did not redraw the pins")
+savedListener("showAreas", true)
+assert(removed == 6 and acquired == 3, "turning the shading on did not redraw the pins")
 print("map_combat: real UI/Map.lua attachment protected-refresh contract passed")

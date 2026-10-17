@@ -117,7 +117,7 @@ local function AddZoneTooltip(tooltip, zone)
 	GameTooltip_AddInstructionLine(tooltip, L["Click the zone to see where."])
 end
 
----@param key 'showAreas'|'whatsNew'|'suggestFamily'
+---@param key 'showAreas'|'showEntrances'|'whatsNew'|'suggestFamily'
 local function ToggleSetting(key)
 	ns.Saved.Set(key, not ns.Saved.Get(key))
 end
@@ -128,6 +128,8 @@ end
 -- entry tracks only this zone's share of its challenge (Model.ZoneKey), "No fixed location"
 -- the whole challenge. The tracker's challenge names open the Legacy panel.
 local TRACK_HINT = L["Click to track, with live progress."]
+-- The same line as the switch's row on the Settings page.
+local ENTRANCES_TOOLTIP = L["Turn this off if another addon already marks them. The Legacy map menu still lists them."]
 
 ---@param name string
 ---@param count number
@@ -234,6 +236,12 @@ local function BuildMenu(root, uiMapID)
 	end
 	root:CreateDivider()
 	root:CreateCheckbox(L["Show undiscovered areas"], ns.Saved.Get, ToggleSetting, "showAreas")
+	local entrances =
+		root:CreateCheckbox(L["Show dungeon and raid entrances"], ns.Saved.Get, ToggleSetting, "showEntrances")
+	entrances:SetTooltip(function(tooltip)
+		GameTooltip_SetTitle(tooltip, L["Show dungeon and raid entrances"])
+		GameTooltip_AddNormalLine(tooltip, ENTRANCES_TOOLTIP)
+	end)
 	AddUnlocated(root)
 	root:CreateDivider()
 	ns.Completion.AddMenu(root)
@@ -685,7 +693,7 @@ local function Attach()
 	-- Progress moves the pins and the "On the world map" switch the badges: zone completion's notice covers both.
 	ns.ZoneCompletion.OnChange(ns.RefreshMap)
 	ns.Saved.OnChange(function(key)
-		if key == "showAreas" then
+		if key == "showAreas" or key == "showEntrances" then
 			ns.RefreshMap()
 		end
 	end)

@@ -38,7 +38,7 @@ for id = 1, 10 do
 end
 live[100][5].completed = true
 
-local settings = { showAreas = true }
+local settings = { showAreas = true, showEntrances = true }
 local shownOnMap = true
 local explored = {}
 ns.Saved = {
@@ -181,6 +181,29 @@ drawn = MapContents.Drawn(ZONE)
 equal(drawn.shade, nil, "shading switched off")
 equal(#drawn.pins, 1, "exploration is not pinned even with shading off")
 settings.showAreas = true
+
+-- "Show dungeon and raid entrances" off takes only the entrance pins away: the other pins, the shade, the
+-- continent badges, the button's count and the menu's entries stay.
+live[100][5].completed = false
+drawn = MapContents.Drawn(ZONE)
+equal(#drawn.pins, 2, "an unfinished entrance is pinned")
+equal(drawn.pins[2].objective.entry.kind, "instance", "the entrance pin")
+settings.showEntrances = false
+drawn = MapContents.Drawn(ZONE)
+equal(#drawn.pins, 1, "entrances switched off: only the entrance pin goes")
+equal(drawn.pins[1].objective.entry.criteria, 3, "the boss pin stays")
+equal(#assert(drawn.shade, "the shade stays").areas, 3, "every undiscovered area is still shaded")
+groups, count = MapContents.Objectives(ZONE)
+equal(count, 5, "the button still counts the entrance")
+equal(#groups[2].objectives, 3, "and the menu still lists it")
+for _, zone in ipairs(MapContents.Drawn(CONTINENT).badges) do
+	if zone.uiMapID == ZONE then
+		badge = zone
+	end
+end
+equal(badge.count, 3, "a continent badge still counts the entrance")
+settings.showEntrances = true
+live[100][5].completed = true
 
 drawn = MapContents.Drawn(PLAIN)
 equal(drawn.shade, nil, "a zone without tile data has no shade")

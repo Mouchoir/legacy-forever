@@ -67,7 +67,7 @@ edit changed nothing. `gen_legacy.py --offline` fails when the cache holds an ol
 - `LegacyForever.toc` file list: load order `Locales/enUS.lua` (then any `Locales/<locale>.lua`), `Data/Legacy.lua, Core, Saved, ForeverFamily, WhatsNew, Model, Live, Quests, Navigate,
   ZoneCompletion, TrackerHost, Tracker, UI/Completion.xml, Completion, Settings, MapContents, UI/Map.xml, Map, API`; never reorder as formatting.
 - `## SavedVariables: LegacyForeverDB`: persisted keys `tracked`, `zoneCompletion`,
-  `flightPaths`, `trackerHost`, `showAreas`, `whatsNew`, `lastVersion`, named only in `Core/Saved.lua`, and `suggestFamily` (default
+  `flightPaths`, `trackerHost`, `showAreas`, `showEntrances`, `whatsNew`, `lastVersion`, named only in `Core/Saved.lua`, and `suggestFamily` (default
   in `Core/Saved.lua`) and `familyDismissed`, which the shared `UI/ForeverFamily.lua` (byte-identical in all five addons; never edit it
   here) also reads and writes through `ns.FamilyDB()`; old keys in players' saved data are compatibility obligations (`companions`, pre-0.8, is
   migrated to `suggestFamily` once and dropped).

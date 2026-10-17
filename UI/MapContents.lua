@@ -177,12 +177,14 @@ end
 -- What the pin provider draws. A continent gets zone badges, which follow zone completion's "On the
 -- world map" switch, so turning it off leaves continents bare. A zone gets a pin per place-bound
 -- objective (bosses, dungeons, quests) and its undiscovered areas shaded; exploration is never
--- pinned, a shaded area carrying its Legacy step for the hover instead.
+-- pinned, a shaded area carrying its Legacy step for the hover instead. "Show dungeon and raid entrances"
+-- off leaves out only the entrance pins: the button still counts them and its menu still lists them.
 ---@param uiMapID number?
 ---@return LegacyMapDrawing
 function MapContents.Drawn(uiMapID)
 	---@type LegacyMapDrawing
 	local drawn = { badges = {}, pins = {} }
+	local entrances = ns.Saved.Get("showEntrances")
 	local info = uiMapID and C_Map.GetMapInfo(uiMapID)
 	if uiMapID and info and info.mapType == Enum.UIMapType.Continent then
 		if ns.ZoneCompletion.IsShown("map") then
@@ -197,7 +199,7 @@ function MapContents.Drawn(uiMapID)
 			local shaded = entry.kind == "explore" and shade and shade.byKey[entry.key]
 			if shaded then
 				shaded.objective = { group = group, objective = objective }
-			elseif entry.x and entry.kind ~= "explore" then
+			elseif entry.x and entry.kind ~= "explore" and (entrances or entry.kind ~= "instance") then
 				drawn.pins[#drawn.pins + 1] = { group = group, objective = objective }
 			end
 		end

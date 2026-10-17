@@ -100,6 +100,7 @@ L["Repeatable, holiday and profession quests are left out."] =
 L["Reputations (Friendly)"] = "Репутация (Дружелюбие)"
 L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
 	"Показывать неприметную строку там, где помогла бы другая моя модификация Forever. Только для тех, что у вас не установлены."
+L["Show dungeon and raid entrances"] = "Показывать входы в подземелья и рейды"
 L["Show undiscovered areas"] = "Показывать неоткрытые области"
 L["Shows the Legacy challenges you can advance in each zone."] =
 	"Показывает старинные испытания, которые можно продвинуть в каждой зоне."
@@ -113,6 +114,8 @@ L["The zone you're viewing in the map's corner, and a badge on each zone of a co
 	"Просматриваемая зона в углу карты и значок на каждой зоне карты континента."
 L["This addon"] = "Эта модификация"
 L["This version of Questie isn't supported."] = "Эта версия Questie не поддерживается."
+L["Turn this off if another addon already marks them. The Legacy map menu still lists them."] =
+	"Отключите, если их уже отмечает другая модификация. Меню старинных испытаний на карте по-прежнему их показывает."
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"Отключите, чтобы перетаскивать общее отслеживание Forever в любое место экрана."
 L["Undiscovered area"] = "Неоткрытая область"

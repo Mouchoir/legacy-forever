@@ -23,6 +23,7 @@ end
 -- A fresh install: no saved variables at all.
 LegacyForeverDB = nil
 check(Saved.Get("showAreas") == true, "areas are shaded out of the box")
+check(Saved.Get("showEntrances") == true, "entrances are pinned out of the box")
 check(
 	Saved.Get("whatsNew") == true and Saved.Get("suggestFamily") == true,
 	"update line and family hints on out of the box"
@@ -71,11 +72,11 @@ check(LegacyForeverDB.companions == nil, "an old on is dropped too")
 LegacyForeverDB = { companions = false }
 check(ns.FamilyDB() == LegacyForeverDB and LegacyForeverDB.suggestFamily == false, "the family table is migrated")
 
--- Writes keep the shape save files already have: three switches at the top, the rest under zoneCompletion
+-- Writes keep the shape save files already have: four switches at the top, the rest under zoneCompletion
 -- by the same keys, beside the data tables and untouched by them.
 local tracked = { "a:1" }
 LegacyForeverDB = { tracked = tracked, lastVersion = "0.6.0", zoneCompletion = { count_taxis = true } }
-for _, key in ipairs({ "showAreas", "whatsNew", "suggestFamily" }) do
+for _, key in ipairs({ "showAreas", "showEntrances", "whatsNew", "suggestFamily" }) do
 	Saved.Set(key, false)
 	check(LegacyForeverDB[key] == false and Saved.Get(key) == false, key .. " is saved at the top level")
 	check(LegacyForeverDB.zoneCompletion[key] == nil, key .. " stays out of zone completion")
@@ -283,6 +284,7 @@ local kinds, expectedKinds =
 		"button@Legacy Forever",
 		"checkbox@World map",
 		"checkbox@World map",
+		"checkbox@World map",
 		"button@Legacy Forever",
 		"checkbox@Objective tracker",
 		"checkbox@Objective tracker",
@@ -310,6 +312,7 @@ end
 local expected = {
 	trackerAttached = true,
 	showAreas = true,
+	showEntrances = true,
 	map = true,
 	tracker = false,
 	count_areas = true,
@@ -345,7 +348,7 @@ check(
 -- Quests grey out without Questie, as the map menu's box does, and the name and tooltip are translated.
 local quests = byKey.count_quests
 check(quests.name == "quests", "a category row is named by its label")
-check(#registered[8].initializer.modify == 0, "only quests can grey out")
+check(#registered[9].initializer.modify == 0, "only quests can grey out")
 local questsRow
 for _, entry in ipairs(registered) do
 	if entry.initializer.setting == quests then
@@ -380,6 +383,14 @@ check(heard[#heard] == "second count_areas" and not Saved.Get("count_areas"), "a
 Saved.Set("showAreas", false)
 check(byKey.showAreas:GetValue() == false, "a toggle elsewhere shows on the row")
 check(notified[#notified] == "LegacyForever_showAreas", "a toggle elsewhere has the row read again")
+
+-- The entrances row, under the shading on the World map page, says what the menu keeps.
+check(registered[3].initializer.setting == byKey.showEntrances, "entrances follow the shading on the map page")
+check(byKey.showEntrances.name == "Show dungeon and raid entrances", "the entrances row is named as in the menu")
+check(registered[3].initializer.tooltip:find("menu still lists them", 1, true), "and says the menu keeps them")
+byKey.showEntrances:SetValue(false)
+check(LegacyForeverDB.showEntrances == false and not Saved.Get("showEntrances"), "the entrances row saves")
+check(heard[#heard] == "second showEntrances", "and tells the listeners, which redraw the map")
 
 check(byKey.trackerAttached:GetValue() == true, "shared tracker starts attached")
 byKey.trackerAttached:SetValue(false)

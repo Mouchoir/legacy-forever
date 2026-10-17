@@ -404,6 +404,7 @@ def main_menu(ui, live):
     entries += [
         MenuDivider(),
         MenuCheckbox("Show undiscovered areas", True),
+        MenuCheckbox("Show dungeon and raid entrances", True),
         MenuButton(f"No fixed location |cffffffff({open_total})|r", True),
         MenuDivider(),
         MenuTitle("Zone completion"),

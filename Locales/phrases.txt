@@ -89,6 +89,7 @@ L["Repeatable, holiday and profession quests are left out."] = "Repeatable, holi
 L["Reputations (Friendly)"] = "Reputations (Friendly)"
 L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
 	"Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."
+L["Show dungeon and raid entrances"] = "Show dungeon and raid entrances"
 L["Show undiscovered areas"] = "Show undiscovered areas"
 L["Shows the Legacy challenges you can advance in each zone."] =
 	"Shows the Legacy challenges you can advance in each zone."
@@ -102,6 +103,8 @@ L["The zone you're viewing in the map's corner, and a badge on each zone of a co
 	"The zone you're viewing in the map's corner, and a badge on each zone of a continent map."
 L["This addon"] = "This addon"
 L["This version of Questie isn't supported."] = "This version of Questie isn't supported."
+L["Turn this off if another addon already marks them. The Legacy map menu still lists them."] =
+	"Turn this off if another addon already marks them. The Legacy map menu still lists them."
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"Turn this off to drag the shared Forever tracker anywhere on screen."
 L["Undiscovered area"] = "Undiscovered area"

@@ -95,6 +95,7 @@ L["Repeatable, holiday and profession quests are left out."] =
 L["Reputations (Friendly)"] = "평판 (약간 우호적)"
 L["Show a quiet line where one of my other Forever addons would help. Only for addons you don't have."] =
 	"제 다른 Forever 애드온이 도움이 될 만한 곳에 조용히 한 줄을 표시합니다. 설치하지 않은 애드온만 해당됩니다."
+L["Show dungeon and raid entrances"] = "던전 및 공격대 입구 표시"
 L["Show undiscovered areas"] = "발견하지 않은 구역 표시"
 L["Shows the Legacy challenges you can advance in each zone."] =
 	"각 지역에서 진행할 수 있는 유산 도전을 보여줍니다."
@@ -108,6 +109,8 @@ L["The zone you're viewing in the map's corner, and a badge on each zone of a co
 	"지도 모서리에 보고 있는 지역을, 대륙 지도에는 각 지역에 배지를 표시합니다."
 L["This addon"] = "이 애드온"
 L["This version of Questie isn't supported."] = "이 버전의 Questie는 지원하지 않습니다."
+L["Turn this off if another addon already marks them. The Legacy map menu still lists them."] =
+	"다른 애드온이 이미 표시한다면 끄세요. 지도의 유산 메뉴에는 계속 표시됩니다."
 L["Turn this off to drag the shared Forever tracker anywhere on screen."] =
 	"끄면 공용 Forever 추적기를 화면 어디로든 끌어 옮길 수 있습니다."
 L["Undiscovered area"] = "발견하지 않은 구역"

@@ -153,6 +153,7 @@
 
 ---@class LegacyDefaults
 ---@field showAreas boolean
+---@field showEntrances boolean
 ---@field whatsNew boolean
 ---@field suggestFamily boolean
 ---@field zoneCompletion LegacySettings
@@ -163,6 +164,7 @@
 ---@field zoneCompletion? LegacySettings
 ---@field flightPaths? table<string, LegacyFlightRecord>
 ---@field showAreas? boolean
+---@field showEntrances? boolean
 ---@field whatsNew? boolean
 ---@field suggestFamily? boolean
 ---@field companions? boolean Before 0.8; Saved migrates it to suggestFamily.
