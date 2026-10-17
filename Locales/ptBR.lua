@@ -98,6 +98,8 @@ L["Stop tracking"] = "Não rastrear"
 L["Suggest my other Forever addons"] = "Sugerir meus outros AddOns Forever"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
 	"O texto está selecionado. Pressione Ctrl+C (Cmd+C no Mac) para copiá-lo e cole-o no seu relato de erro."
+L["The tracker sections now move clear of Questie's quest list."] =
+	"As seções do rastreador agora ficam fora da lista de missões do Questie."
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"A zona em que você está e o que falta fazer nela. Desafios rastreados mantêm sua própria seção de Legado."
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =
@@ -115,8 +117,6 @@ L["Waiting for Questie to finish loading."] = "Aguardando o Questie terminar de 
 L["What counts"] = "O que conta"
 L["What's new after an update"] = "Novidades após uma atualização"
 L["World map"] = "Mapa-múndi"
-L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
-	"Agora você pode ocultar os marcadores de entradas de masmorras e raides pelo menu de Legado do mapa."
 L["Zone complete"] = "Zona concluída"
 L["Zone completion"] = "Progresso da zona"
 L["Zone completion in the tracker"] = "Progresso da zona no rastreador"

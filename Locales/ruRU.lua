@@ -107,6 +107,8 @@ L["Stop tracking"] = "Не отслеживать"
 L["Suggest my other Forever addons"] = "Предлагать другие мои модификации Forever"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
 	"Текст выделен. Нажмите Ctrl+C (Cmd+C на Mac), чтобы скопировать его, и вставьте в сообщение об ошибке."
+L["The tracker sections now move clear of Questie's quest list."] =
+	"Разделы отслеживания теперь не перекрываются списком заданий Questie."
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"Текущая зона и что в ней осталось сделать. Отслеживаемые испытания остаются в своем разделе."
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =
@@ -124,8 +126,6 @@ L["Waiting for Questie to finish loading."] = "Ожидание окончани
 L["What counts"] = "Что учитывается"
 L["What's new after an update"] = "Что нового после обновления"
 L["World map"] = "Карта мира"
-L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
-	"Теперь метки входов в подземелья и рейды можно скрыть в меню старинных испытаний на карте."
 L["Zone complete"] = "Зона пройдена"
 L["Zone completion"] = "Прохождение зоны"
 L["Zone completion in the tracker"] = "Прохождение зоны в отслеживании"

@@ -119,7 +119,7 @@ CI runs these checks on main pushes and pull requests. Each day a scheduled job 
 
 ## Credits
 
-Brainc3ll translated Legacy Forever into French. Some features were inspired by [Polestar](https://github.com/fitzforge/polestar) by Fitz, such as `/lf report` and the issue forms; no code was copied. Fitz is welcome to use our code. Thanks to Bigabyte, overspark and everyone who reported a bug or asked for a feature. [THIRD_PARTY.md](THIRD_PARTY.md) has the full list.
+Brainc3ll translated Legacy Forever into French. Some features were inspired by [Polestar](https://github.com/fitzforge/polestar) by Fitz, such as `/lf report` and the issue forms; no code was copied. Fitz is welcome to use our code. Thanks to Bigabyte, overspark, deathmvp1, berserkerlxl and everyone who reported a bug or asked for a feature. [THIRD_PARTY.md](THIRD_PARTY.md) has the full list.
 
 ## Licence
 
