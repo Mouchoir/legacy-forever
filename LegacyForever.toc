@@ -36,6 +36,7 @@ Core\Live.lua
 Integrations\Quests.lua
 Integrations\Navigate.lua
 Core\ZoneCompletion.lua
+UI\TrackerQuestie.lua
 UI\TrackerHost.lua
 UI\Tracker.lua
 UI\Completion.xml

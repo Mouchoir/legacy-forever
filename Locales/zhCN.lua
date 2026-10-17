@@ -94,6 +94,8 @@ L["Stop tracking"] = "取消追踪"
 L["Suggest my other Forever addons"] = "推荐我的其他Forever插件"
 L["The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it, then paste it into your bug report."] =
 	"文本已选中。按Ctrl+C（Mac上为Cmd+C）复制，然后粘贴到你的错误报告中。"
+L["The tracker sections now move clear of Questie's quest list."] =
+	"追踪栏现在会避开 Questie 的任务列表。"
 L["The zone you're in and what is left to do there. Challenges you track keep their own Legacy section."] =
 	"你所在的地区以及那里剩余的事项。你追踪的挑战保留在各自的传承区块中。"
 L["The zone you're viewing in the map's corner, and a badge on each zone of a continent map."] =
@@ -111,8 +113,6 @@ L["Waiting for Questie to finish loading."] = "正在等待Questie加载完毕�
 L["What counts"] = "计入内容"
 L["What's new after an update"] = "更新后的新内容"
 L["World map"] = "世界地图"
-L["You can now hide its dungeon and raid entrance pins from the Legacy map menu."] =
-	"现在可以在地图的传承菜单中隐藏地下城和团队副本入口标记。"
 L["Zone complete"] = "地区已完成"
 L["Zone completion"] = "地区完成度"
 L["Zone completion in the tracker"] = "在追踪栏中显示地区完成度"

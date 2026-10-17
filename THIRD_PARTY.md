@@ -45,5 +45,6 @@ Credit for the ideas, translations and reports behind the addon.
 | Brainc3ll | The French translation (#99) | |
 | Bigabyte | Found the quest tracker shifting when moved in Edit Mode (#103) | |
 | overspark | Asked on CurseForge for a way to hide the dungeon and raid entrance pins, which became *Show dungeon and raid entrances* (#139) | |
+| deathmvp1 and berserkerlxl, on CurseForge | Found Questie's quest list covering the Forever tracker sections, which now move clear of it (cjber/shortest-path-forever#214) | |
 
 Thanks also to everyone else who reported a bug, here or on CurseForge.

@@ -12,6 +12,10 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-10-17
+
+- **The tracker sections now move clear of Questie's quest list.** With Questie's tracker on, its list was drawn over the Forever sections. They now sit below Questie's list, or above or beside it when there isn't room, and follow it when it moves, grows or hides; your quest tracker keeps its own place. Thanks to deathmvp1 for the report and berserkerlxl for finding the cause.
+
 ## [0.10.0] - 2026-10-17
 
 - **You can hide Legacy's dungeon and raid entrances on the world map.** Many map addons already mark every entrance, so Legacy's portal with its shield was a second icon in the same spot. Untick *Show dungeon and raid entrances* in the Legacy map menu, or on the World map page under Options > AddOns > Legacy Forever, and the entrance pins go at once. Everything else stays: other pins, the continent zone badges and the undiscovered-area shading. The map button still counts the entrances and its menu still lists them, so you can still track them. It's on by default; thanks to overspark for the idea.
