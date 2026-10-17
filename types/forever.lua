@@ -37,3 +37,16 @@ UiMapPoint = nil
 
 ---@type {API: LegacyShortestPathAPI?}?
 ShortestPathForever = nil
+
+-- InputInterfaceStyleDocumentation.lua: which interface the game shows, mouse and keyboard or the gamepad one.
+---@type {GetCurrentStyle: fun(): number}?
+C_InputInterfaceStyle = nil
+
+-- Blizzard_GamepadMapCursor: the gamepad's cursor on the world map, read for its place.
+---@type Frame
+SoftCursor = nil
+
+-- The Forever addons' world map markers, for each other (UI/MapCanvas.lua): each addon's function gives its shown
+-- markers on a map, as map fractions.
+---@type table<string, fun(map: WorldMapFrame): {x: number, y: number, kind: string}[]>
+ForeverMapMarkers = nil

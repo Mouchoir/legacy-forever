@@ -20,6 +20,7 @@ local _, addon = ...
 ---@field ZoneCompletion LegacyZoneCompletion
 ---@field Completion LegacyCompletion
 ---@field MapContents LegacyMapContents
+---@field MapCanvas LegacyMapCanvas the views of our own on the world map (UI/MapCanvas.lua)
 ---@field RefreshMap fun()
 ---@field OpenMapMenu fun()
 ---@field Navigate fun(uiMapID: number, x: number, y: number, title: string)

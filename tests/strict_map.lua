@@ -115,6 +115,10 @@ end
 function Frame:EnableMouse(enabled)
 	self.mouse = enabled
 end
+function Frame:SetMouseClickEnabled(enabled)
+	assert(not Kit.combat, "SetMouseClickEnabled is refused in combat")
+	self.mouseClicks = enabled
+end
 function Frame:SetPassThroughButtons(...)
 	assert(not Kit.combat, "SetPassThroughButtons is refused in combat")
 	self.passThrough = { ... }

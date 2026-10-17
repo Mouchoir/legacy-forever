@@ -150,7 +150,10 @@ check(host:GetParent() == Kit.canvas, "the pins sit on a layer of ours over the 
 check(pin.level == 30 and Areas()[1].level == 20, "pins take the map's frame levels for their kind")
 check(pin.point[2] == Kit.canvas and pin.point[4] == 250 and pin.point[5] == -350, "the pin sits at its map fraction")
 check(math.abs(pin.scale - 1) < 1e-9, "zoomed out, the pin is at its start scale")
-check(pin.mouse == true and #pin.passThrough == 1 and pin.passThrough[1] == "RightButton", "right-click zooms out")
+check(
+	pin.mouse and pin.mouseClicks and #pin.passThrough == 1 and pin.passThrough[1] == "RightButton",
+	"right-click zooms out"
+)
 local areaFrame = Areas()[1]
 check(areaFrame.mouse == false, "the shading never takes the mouse, so the map keeps its clicks and drags")
 check(areaFrame.width == 1000 and areaFrame.height == 700, "the shading covers the canvas")
@@ -228,7 +231,7 @@ Kit.mapID = 1415
 Kit.Tick()
 pins = Pins()
 check(#pins == 1 and #Areas() == 0, "turning the map redraws: the continent shows its zone badge")
-check(#pins[1].passThrough == 2, "a zone badge lets the map take its clicks")
+check(pins[1].mouseClicks == false, "a zone badge lets the map take its clicks")
 Kit.mouseOver = pins[1]
 pins[1]:Run("OnEnter")
 Kit.Fire("GLOBAL_MOUSE_DOWN", "LeftButton")

@@ -28,6 +28,7 @@ local _, ns = ...
 -- GLOBAL_MOUSE_DOWN and GLOBAL_MOUSE_UP on a frame of ours. The right button goes through to the canvas (zoom out), as
 -- on the map's own pins. Under the gamepad interface the pin nearest the map's cursor shows its tooltip.
 
+---@class LegacyMapCanvas
 local MapCanvas = {}
 ns.MapCanvas = MapCanvas
 
@@ -354,15 +355,15 @@ function Pin:ApplyPosition()
 	self:SetPoint("CENTER", view.canvas, "TOPLEFT", view.width * x / scale, -view.height * y / scale)
 end
 
--- The left button acts only on a pin that clicks; any other press goes through to the canvas beneath.
+-- The left button acts only on a pin that clicks, and the right goes through to the canvas beneath (zoom out); a pin
+-- that doesn't click lets the map take every press.
 function Pin:ApplyClicks()
 	if not self.takesMouse then
 		return
 	end
+	self:SetMouseClickEnabled(self.clicks == true)
 	if self.clicks then
 		self:SetPassThroughButtons("RightButton")
-	else
-		self:SetPassThroughButtons("LeftButton", "RightButton")
 	end
 end
 
