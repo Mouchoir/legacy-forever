@@ -289,7 +289,7 @@ function LegacyForeverZoneOverlayMixin:OnLoad()
 	self.Progress:SetPoint("RIGHT")
 end
 
--- Called by the world map whenever it changes map.
+-- Called as the world map opens or changes map.
 function LegacyForeverZoneOverlayMixin:Refresh()
 	---@type WorldMapFrame
 	local map = self:GetParent()
@@ -344,38 +344,23 @@ function LegacyForeverZoneOverlayMixin:OnHide()
 	end
 end
 
--- The map refreshes providers on show and on every map change, but its overlay frames
--- only on a map change, so a provider keeps the corner current.
----@param overlay LegacyForeverZoneOverlayMixin
----@return MapCanvasDataProviderMixin
-local function CreateProvider(overlay)
-	local provider = CreateFromMixins(MapCanvasDataProviderMixin)
-
-	function provider:RefreshAllData()
-		overlay:Refresh()
-	end
-
-	return provider
-end
-
+-- A frame of our own in the map's top-left corner, right of the floor dropdown and Camelot's tracking pin button that
+-- share it, kept current as the map opens and turns (UI/MapCanvas.lua): never the map's overlay frames or providers.
 local function AttachMap()
 	local map = WorldMapFrame
-	-- Right of the floor dropdown and Camelot's tracking pin button, which share the corner.
-	---@type LegacyForeverZoneOverlayMixin
-	local overlay = map:AddOverlayFrame(
-		"LegacyForeverZoneOverlayTemplate",
-		"BUTTON",
-		"TOPLEFT",
-		map:GetCanvasContainer(),
-		"TOPLEFT",
-		44,
-		-18
-	)
-	local provider = CreateProvider(overlay)
-	map:AddDataProvider(provider)
+	local MapCanvas = ns.MapCanvas
+	local overlay = MapCanvas.FrameUnder("Button", map, "LegacyForeverZoneOverlayTemplate")
+	---@cast overlay LegacyForeverZoneOverlayMixin
+	overlay:SetFrameStrata("HIGH")
+	overlay:SetPoint("TOPLEFT", map:GetCanvasContainer(), "TOPLEFT", 44, -18)
+	MapCanvas.Watch(map, function(_, what)
+		if what == "show" or what == "map" then
+			overlay:Refresh()
+		end
+	end)
 	Zones.OnChange(function()
 		if map:IsShown() then
-			provider:RefreshAllData()
+			overlay:Refresh()
 		end
 	end)
 end

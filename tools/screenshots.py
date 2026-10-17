@@ -432,7 +432,7 @@ def world_map(ui, data, live, ui_map=ASHENVALE, collapsed=False):
     for overlay in map_overlays(ui, ui_map):
         if overlay.key in live.explored:
             draw_overlay(ui, art, overlay.offset_x, overlay.offset_y, overlay.width, overlay.height, overlay.tiles)
-    # LegacyForeverAreaPinMixin: every undiscovered area's tiles, black at AREA_ALPHA.
+    # AreaPin (UI/Map.lua): every undiscovered area's tiles, black at AREA_ALPHA.
     for area in zone["areas"]:
         if area["key"] not in live.explored:
             x, y, w, h = (int(n) for n in area["key"].split(":"))
@@ -582,7 +582,7 @@ def continent_zones(ui, data, live, continent):
 
 
 def zone_pin(ui, canvas, x, y, portal=None):
-    """LegacyForeverPinMixin:Layout centred on (x, y): the bare icon fitted in 14x20, or at an entrance the 32x32
+    """ObjectivePin:Layout (UI/Map.lua) centred on (x, y): the bare icon fitted in 14x20, or at an entrance the 32x32
     portal atlas with the icon fitted in 12x17 at its BOTTOMRIGHT offset (2, -2). A count is only ever in the tooltip.
     ns.Art.Fit keeps the 50x73 shield's shape, so the full height sets the width."""
     shield = ui.atlas(POINTS_ICON)

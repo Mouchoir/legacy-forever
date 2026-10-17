@@ -12,6 +12,12 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **Gamepad interface: the world map is only read.** The Legacy pins, the undiscovered-area shading, the map button and the zone's corner progress are now drawn on frames of Legacy Forever's own over the map, so the game's map no longer holds any of the addon's pins, data or buttons. With the gamepad interface on, the map walks its own pins and buttons from secure code every frame, and an addon's in that walk can block the game's controller actions. Everything works as before: tooltips, a click to travel to an objective, a zone badge's click opening the zone, right-click to zoom out, and the entrance switch. Under the gamepad interface, a pin under the map cursor shows its tooltip. Thanks to Polestar for the idea.
+
+### For addon authors
+
+- **`ForeverMapMarkers`.** The pins aren't the map's own any more, so `WorldMapFrame:EnumeratePinsByTemplate("LegacyForeverPinTemplate")` no longer finds them. `ForeverMapMarkers.LegacyForever(WorldMapFrame)` returns the shown pins as `{x, y, kind = "legacy"}` map fractions on the map being viewed.
+
 ## [0.10.0] - 2026-10-17
 
 - **You can hide Legacy's dungeon and raid entrances on the world map.** Many map addons already mark every entrance, so Legacy's portal with its shield was a second icon in the same spot. Untick *Show dungeon and raid entrances* in the Legacy map menu, or on the World map page under Options > AddOns > Legacy Forever, and the entrance pins go at once. Everything else stays: other pins, the continent zone badges and the undiscovered-area shading. The map button still counts the entrances and its menu still lists them, so you can still track them. It's on by default; thanks to overspark for the idea.

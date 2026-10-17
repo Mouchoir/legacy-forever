@@ -73,11 +73,10 @@ edit changed nothing. `gen_legacy.py --offline` fails when the cache holds an ol
   migrated to `suggestFamily` once and dropped).
 - `## AddonCompartmentFunc: LegacyForever_OnAddonCompartmentClick`: global called by the client.
 - `SLASH_LEGACYFOREVER1/2` + `SlashCmdList.LEGACYFOREVER` (Core/Core.lua): `/lf`, `/lf audit`, `/lf criteria`.
-- XML `mixin=` names (`LegacyForeverPinMixin`, `LegacyForeverAreaPinMixin`, `LegacyForeverMapButtonMixin`,
-  `LegacyForeverZoneOverlayMixin`) and `<Scripts>` `method=` handlers (`OnLoad`, `OnShow`, `OnHide`, `OnClick`,
+- XML `mixin=` names (`LegacyForeverMapButtonMixin`, `LegacyForeverZoneOverlayMixin`) and `<Scripts>` `method=` handlers (`OnLoad`, `OnShow`, `OnHide`, `OnClick`,
   `OnEnter`, `OnLeave`).
-- Methods the map canvas calls on data providers and pins by name (`RefreshAllData`,
-  `RemoveAllData`, `OnAcquired`, `OnReleased`, `OnMouseEnter`, `OnMouseLeave`), tracker-module
+- Pin methods `UI/MapCanvas.lua` calls by name (`OnLoad`, `OnAcquired`, `OnReleased`, `OnMouseEnter`,
+  `OnMouseLeave`, `OnMouseClickAction`), `ForeverMapMarkers.LegacyForever` (read by Tweaks Forever), tracker-module
   methods (`LayoutContents`, `OnBlockHeaderClick/Enter/Leave`), and
   addon-owned callback targets (tracker `SetCollapsed`); native manager hooks are forbidden.
 - Event names registered in `Core/Live.lua` and callbacks via `EventRegistry`/`EventUtil`.
