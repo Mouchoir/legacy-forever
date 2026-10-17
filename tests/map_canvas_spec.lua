@@ -290,9 +290,11 @@ SoftCursor.GetRect = function()
 end
 Kit.Tick()
 check(tooltip.owner == nil, "moving the map cursor away leaves the pin")
+Kit.mouseOver = Pins()[1]
 Pins()[1]:Run("OnEnter")
 Kit.Tick()
 check(tooltip.owner == Pins()[1], "the map cursor never takes away a pin the mouse is on")
+Kit.mouseOver = nil
 Pins()[1]:Run("OnLeave")
 
 ns.OpenMapMenu()

@@ -12,7 +12,7 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
-- **Gamepad interface: the world map is only read.** The Legacy pins, the undiscovered-area shading, the map button and the zone's corner progress are now drawn on frames of Legacy Forever's own over the map, so the game's map no longer holds any of the addon's pins, data or buttons. With the gamepad interface on, the map walks its own pins and buttons from secure code every frame, and an addon's in that walk can block the game's controller actions. Everything works as before: tooltips, a click to travel to an objective, a zone badge's click opening the zone, right-click to zoom out, and the entrance switch. Under the gamepad interface, a pin under the map cursor shows its tooltip. Thanks to Polestar for the idea.
+- **Gamepad interface: the world map is only read.** The Legacy pins, the undiscovered-area shading, the map button and the zone's corner progress are now drawn on frames of Legacy Forever's own over the map, so the game's map no longer holds any of the addon's pins, data or buttons. With the gamepad interface on, the map walks its own pins and buttons from secure code every frame, and an addon's in that walk can block the game's controller actions. Everything works as before: tooltips, a mouse click to travel to an objective, a zone badge's click opening the zone, right-click to zoom out, and the entrance switch. Under the gamepad interface, a pin under the map cursor shows its tooltip; travelling there still takes a mouse click. Thanks to Polestar for the idea.
 
 ### For addon authors
 

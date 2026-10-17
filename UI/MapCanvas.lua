@@ -172,7 +172,12 @@ local function Update(view)
 		Fire(view, "scale")
 	end
 	-- Under the gamepad interface the map cursor hovers the pin nearest it; it never takes over one the mouse is on.
-	if MapCanvas.Gamepad() and not (hovered and not hoveredByCursor) then
+	-- A pin the mouse is really over stays its own.
+	local mouseHolds = hovered and not hoveredByCursor and hovered:IsMouseOver()
+	if not mouseHolds and hovered and hovered.view == view and hoveredByCursor and not MapCanvas.Gamepad() then
+		SetHovered(nil)
+		hoveredByCursor = false
+	elseif not mouseHolds and MapCanvas.Gamepad() then
 		local pin = PinAtCursor(view)
 		if pin or (hovered and hovered.view == view) then
 			SetHovered(pin)
@@ -186,7 +191,9 @@ local function Hide(view)
 	if hovered and hovered.view == view then
 		SetHovered(nil)
 	end
-	pressed = nil
+	if pressed and pressed.view == view then
+		pressed = nil
+	end
 	local open = false
 	for _, other in pairs(views) do
 		open = open or (other ~= view and other.shown)
