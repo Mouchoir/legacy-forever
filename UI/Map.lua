@@ -271,9 +271,14 @@ end
 ---@field count number
 LegacyForeverMapButtonMixin = {}
 
+-- MapCanvas.FrameUnder makes the button with no parent, and SetupMenu builds the menu at once while it shows: the map
+-- is not there yet. Opening the menu always builds it again (DropdownButtonMixin:OpenMenu), by then under the map.
 function LegacyForeverMapButtonMixin:OnLoad()
 	self:SetupMenu(function(_, root)
-		BuildMenu(root, self:GetParent():GetMapID())
+		local map = self:GetParent()
+		if map then
+			BuildMenu(root, map:GetMapID())
+		end
 	end)
 end
 
@@ -322,8 +327,12 @@ function LegacyForeverMapButtonMixin:Refresh()
 	self.count = count
 end
 
+-- Made shown with no parent, the button shows as it is made, before MapCanvas.FrameUnder sets it on the map; Attach
+-- refreshes it once it is there.
 function LegacyForeverMapButtonMixin:OnShow()
-	self:Refresh()
+	if self:GetParent() then
+		self:Refresh()
+	end
 end
 
 function LegacyForeverMapButtonMixin:OnEnter()

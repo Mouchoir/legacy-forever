@@ -12,6 +12,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **No more Lua errors as the world map loads.** Since 0.11.0 the map button worked out its menu and its place before it was on the map, so every login and `/reload` raised two errors. It now waits for the map, and the button and its menu work as before.
+
 ## [0.11.0] - 2026-10-18
 
 - **The map now shows which dungeons and raids you have already cleared.** A dungeon or raid entrance whose Legacy objective is finished is drawn faded, the way an explored area reads as explored, and its tooltip says *Already complete*; the ones still to do stay bright. *Show dungeon and raid entrances* still hides them all. Thanks to overspark, whose CurseForge comment on the entrance pins prompted it.

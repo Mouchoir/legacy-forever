@@ -187,6 +187,18 @@ function Kit.Region()
 	})
 end
 
+-- A menu description that takes any call and returns itself, for a menu the spec does not read.
+function Kit.MenuRoot()
+	local root = {}
+	return setmetatable(root, {
+		__index = function()
+			return function()
+				return root
+			end
+		end,
+	})
+end
+
 -- The pieces the addon's XML templates give a frame.
 local TEMPLATES = {
 	LegacyForeverPinTemplate = function(frame)
@@ -196,7 +208,12 @@ local TEMPLATES = {
 	LegacyForeverMapButtonTemplate = function(frame)
 		frame.Icon, frame.Count = Kit.Region(), Kit.Region()
 		Mixin(frame, LegacyForeverMapButtonMixin)
-		frame.SetupMenu = function() end
+		-- As DropdownButtonMixin:SetupMenu: the menu is built at once while the button shows.
+		frame.SetupMenu = function(self, generator)
+			if self.shown then
+				generator(self, Kit.MenuRoot())
+			end
+		end
 		frame.IsMenuOpen = function()
 			return false
 		end
@@ -204,6 +221,10 @@ local TEMPLATES = {
 			self.opened = true
 		end
 		frame:OnLoad()
+		-- Map.xml's OnShow: the client runs it as the frame is made, when it is made shown with no parent.
+		if not frame.parent then
+			frame:OnShow()
+		end
 	end,
 	LegacyForeverZoneOverlayTemplate = function(frame)
 		frame.Title, frame.Counts = Kit.Region(), Kit.Region()
