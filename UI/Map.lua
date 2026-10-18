@@ -6,6 +6,8 @@ local PIN_TEMPLATE = "LegacyForeverPinTemplate"
 -- Unseen ground reads darker, the fog-of-war convention (a warm tint vanished on the
 -- parchment); darker still under the mouse.
 local AREA_ALPHA, AREA_HOVER_ALPHA = 0.25, 0.4
+-- A cleared dungeon or raid entrance reads as done the way an explored area reads as explored: faded.
+local DONE_ALPHA = 0.4
 local POINTS_ICON = ns.POINTS_ICON
 
 local KIND_LABEL = {
@@ -97,6 +99,9 @@ local function AddPinTooltip(tooltip, group, objective)
 		GameTooltip_SetTitle(tooltip, ns.Live.Name(group.challenge))
 		local label = KIND_LABEL[objective.entry.kind]
 		GameTooltip_AddColoredLine(tooltip, ("%s: %s"):format(label, objective.text), WHITE_FONT_COLOR)
+		if objective.done then
+			GameTooltip_AddColoredLine(tooltip, L["Already complete"], GREEN_FONT_COLOR)
+		end
 	end
 	AddRewardLine(tooltip, group)
 end
@@ -352,6 +357,7 @@ end
 ---@field group? LegacyGroup
 ---@field objective? LegacyObjective
 ---@field zone? LegacyContinentZone
+---@field done boolean a cleared dungeon or raid entrance, drawn faded
 local ObjectivePin = CreateFromMixins(ns.MapCanvas.PinMixin)
 
 function ObjectivePin:OnLoad()
@@ -367,6 +373,7 @@ function ObjectivePin:OnAcquired(group, objective, zone)
 	self.group = group
 	self.objective = objective
 	self.zone = zone
+	self.done = objective ~= nil and objective.done == true
 	-- A zone badge lets the click open the zone below it.
 	self.clicks = self:Destination() ~= nil
 	self:Layout(objective and objective.entry)
@@ -375,6 +382,7 @@ function ObjectivePin:OnAcquired(group, objective, zone)
 	elseif objective then
 		self:SetPosition(objective.entry.x, objective.entry.y)
 	end
+	self:SetAlpha(self.done and DONE_ALPHA or 1)
 end
 
 -- At an entrance: the retail portal the map already uses there, with a small shield on its corner, so the

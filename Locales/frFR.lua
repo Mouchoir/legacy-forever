@@ -25,6 +25,7 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 	"/lf criteria 684 - liste ce que le jeu indique pour un haut fait"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever trace le chemin des quêtes qu'il reste dans cette région." -- mt
+L["Already complete"] = "Déjà terminé" -- mt
 L["Areas explored"] = "Zones explorées"
 L["Attach to quest tracker"] = "Attacher au suivi des quêtes"
 L["Click the zone to see where."] = "Cliquez sur la région pour voir où."

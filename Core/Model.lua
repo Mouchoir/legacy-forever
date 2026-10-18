@@ -36,26 +36,30 @@ end
 -- Unfinished objectives in one zone, grouped by the achievement that holds them
 -- (a challenge, or the exploration achievement feeding it). Objectives whose live
 -- progress is unknown are left out rather than shown as unfinished; Audit reports them.
+-- With `includeDone`, a cleared dungeon or raid entrance is kept as well, marked
+-- `done`, so the map can show which instances are finished and which are not.
 ---@param data LegacyData
 ---@param uiMapID number
 ---@param visible LegacySet
 ---@param criteria LegacyCriteriaReader
+---@param includeDone boolean? also keep cleared dungeon and raid entrances, marked done
 ---@return LegacyGroup[]
-function Model.ZoneObjectives(data, uiMapID, visible, criteria)
+function Model.ZoneObjectives(data, uiMapID, visible, criteria, includeDone)
 	---@type LegacyGroup[], table<number, LegacyGroup>
 	local groups, byAchievement = {}, {}
 	for _, entry in ipairs(data.zones[uiMapID] or {}) do
 		local challenge = Model.OwningChallenge(data, entry.achievement, visible)
 		local live = challenge and criteria(entry.achievement)
 		local progress = live and live[entry.criteria]
-		if challenge and progress and not progress.completed then
+		if challenge and progress and (not progress.completed or (includeDone and entry.kind == "instance")) then
 			local group = byAchievement[entry.achievement]
 			if not group then
 				group = { achievement = entry.achievement, challenge = challenge, uiMapID = uiMapID, objectives = {} }
 				byAchievement[entry.achievement] = group
 				groups[#groups + 1] = group
 			end
-			group.objectives[#group.objectives + 1] = { entry = entry, text = progress.text }
+			group.objectives[#group.objectives + 1] =
+				{ entry = entry, text = progress.text, done = progress.completed or nil }
 		end
 	end
 	return groups

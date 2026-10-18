@@ -38,6 +38,7 @@
 ---@class LegacyObjective
 ---@field entry LegacyEntry
 ---@field text string
+---@field done boolean? a cleared dungeon or raid entrance, kept only for the map
 
 ---@class LegacyGroup
 ---@field achievement number

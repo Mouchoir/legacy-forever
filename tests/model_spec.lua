@@ -58,6 +58,26 @@ equal(groups[2].objectives[1].entry.kind, "kill", "direct objective kept")
 equal(Model.CountObjectives(groups), 2, "count across groups")
 equal(("%d/%d"):format(Model.Tally(live[10])), "1/4", "done and total of an achievement's criteria")
 
+-- A cleared dungeon or raid entrance is kept only when asked for, so the map can fade it.
+local entrance = {
+	rewards = { [100] = true },
+	feeds = {},
+	zones = { [1] = { { achievement = 100, criteria = 3, kind = "instance", x = 0.4, y = 0.5 } } },
+}
+local cleared = { [100] = { [3] = { text = "The Deadmines", completed = true, index = 1 } } }
+local function clearedProgress(id)
+	return cleared[id]
+end
+equal(
+	#Model.ZoneObjectives(entrance, 1, visible, clearedProgress),
+	0,
+	"a cleared entrance is not an unfinished objective"
+)
+local kept = Model.ZoneObjectives(entrance, 1, visible, clearedProgress, true)
+equal(#kept, 1, "with includeDone a cleared entrance is kept")
+equal(kept[1].objectives[1].done, true, "and marked done")
+equal(kept[1].objectives[1].entry.kind, "instance", "the cleared entrance")
+
 equal(#Model.ZoneObjectives(data, 1, {}, criteria), 0, "nothing without a visible challenge")
 equal(#Model.ZoneObjectives(data, 3, visible, criteria), 0, "unknown map")
 local unknown = Model.ZoneObjectives(data, 1, visible, function()

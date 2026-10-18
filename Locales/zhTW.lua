@@ -23,6 +23,7 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 L["/lf report - show a report to copy into a bug report"] = "/lf report - 顯示可複製到錯誤回報中的報告"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever會為此地區剩餘的任務規劃路線。"
+L["Already complete"] = "已完成" -- mt
 L["Areas explored"] = "已探索區域"
 L["Attach to quest tracker"] = "附加到任務追蹤器"
 L["Click the zone to see where."] = "點擊該地區查看位置。"

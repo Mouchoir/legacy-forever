@@ -11,6 +11,7 @@ ns.MapContents = MapContents
 ---@class LegacyMapPin
 ---@field group LegacyGroup
 ---@field objective LegacyObjective
+---@field done boolean? a cleared dungeon or raid entrance, drawn faded
 
 -- One map tile of a shaded area, placed in canvas pixels from the canvas's top-left.
 ---@class LegacyShadeTile
@@ -193,14 +194,18 @@ function MapContents.Drawn(uiMapID)
 		return drawn
 	end
 	local shade = uiMapID and Shade(uiMapID) or nil
-	for _, group in ipairs((MapContents.Objectives(uiMapID))) do
+	-- Cleared dungeon and raid entrances are drawn too, marked done, so a zone shows both what is left and what is
+	-- finished. The button's count and the menu still list only the unfinished objectives (MapContents.Objectives).
+	local groups = uiMapID and ns.Model.ZoneObjectives(ns.Data, uiMapID, ns.Live.Visible(), ns.Live.Criteria, true)
+		or {}
+	for _, group in ipairs(groups) do
 		for _, objective in ipairs(group.objectives) do
 			local entry = objective.entry
 			local shaded = entry.kind == "explore" and shade and shade.byKey[entry.key]
 			if shaded then
 				shaded.objective = { group = group, objective = objective }
 			elseif entry.x and entry.kind ~= "explore" and (entrances or entry.kind ~= "instance") then
-				drawn.pins[#drawn.pins + 1] = { group = group, objective = objective }
+				drawn.pins[#drawn.pins + 1] = { group = group, objective = objective, done = objective.done }
 			end
 		end
 	end

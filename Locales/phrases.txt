@@ -26,6 +26,7 @@ L["/lf criteria 684 - list what the game reports for one achievement"] =
 L["/lf report - show a report to copy into a bug report"] = "/lf report - show a report to copy into a bug report"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever routes the quests left in this zone."
+L["Already complete"] = "Already complete"
 L["Areas explored"] = "Areas explored"
 L["Attach to quest tracker"] = "Attach to quest tracker"
 L["Click the zone to see where."] = "Click the zone to see where."

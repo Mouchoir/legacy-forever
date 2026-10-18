@@ -133,9 +133,11 @@ shownOnMap = true
 -- A zone: pins for place-bound objectives with coordinates; exploration is shaded, never pinned.
 drawn = MapContents.Drawn(ZONE)
 equal(#drawn.badges, 0, "a zone draws no badges")
-equal(#drawn.pins, 1, "one pin: not the step without coordinates, the finished one or the exploration")
+equal(#drawn.pins, 2, "the boss pin and the cleared entrance, not the step without coordinates or the exploration")
 equal(drawn.pins[1].objective.entry.criteria, 3, "the pinned objective")
 equal(drawn.pins[1].group.challenge, 100, "a pin carries its group for the tooltip")
+equal(drawn.pins[2].objective.entry.kind, "instance", "a cleared dungeon or raid entrance is still pinned")
+equal(drawn.pins[2].done, true, "and marked done, so the map draws it faded")
 local shade = assert(drawn.shade, "undiscovered areas are shaded")
 equal(#shade.areas, 3, "every undiscovered area with tiles, a Legacy step or not")
 equal(shade.areas[1].area, areaA, "shaded in data order")
@@ -179,7 +181,7 @@ explored = {}
 settings.showAreas = false
 drawn = MapContents.Drawn(ZONE)
 equal(drawn.shade, nil, "shading switched off")
-equal(#drawn.pins, 1, "exploration is not pinned even with shading off")
+equal(#drawn.pins, 2, "exploration is not pinned even with shading off")
 settings.showAreas = true
 
 -- "Show dungeon and raid entrances" off takes only the entrance pins away: the other pins, the shade, the

@@ -25,6 +25,7 @@ L["/lf report - show a report to copy into a bug report"] =
 	"/lf report - 오류 제보에 붙여 넣을 보고서를 표시합니다"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever는 이 지역에 남은 퀘스트의 경로를 짜 줍니다."
+L["Already complete"] = "이미 완료됨" -- mt
 L["Areas explored"] = "탐험한 구역"
 L["Attach to quest tracker"] = "퀘스트 추적기에 붙이기"
 L["Click the zone to see where."] = "지역을 클릭하면 위치를 볼 수 있습니다."

@@ -24,6 +24,7 @@ L["/lf report - show a report to copy into a bug report"] =
 	"/lf report - muestra un informe para copiar en un reporte de error"
 L["Adventure Guide Forever routes the quests left in this zone."] =
 	"Adventure Guide Forever traza una ruta por las misiones que quedan en esta zona."
+L["Already complete"] = "Ya completado" -- mt
 L["Areas explored"] = "Áreas exploradas"
 L["Attach to quest tracker"] = "Anclar al rastreador de misiones"
 L["Click the zone to see where."] = "Haz clic en la zona para ver dónde."
