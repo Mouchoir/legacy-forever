@@ -39,6 +39,7 @@ Core\ZoneCompletion.lua
 UI\TrackerQuestie.lua
 UI\TrackerHost.lua
 UI\Tracker.lua
+UI\MapCanvas.lua
 UI\Completion.xml
 UI\Completion.lua
 UI\Settings.lua

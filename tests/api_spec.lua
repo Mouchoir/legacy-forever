@@ -159,7 +159,23 @@ C_Texture = {
 		return atlases[atlas]
 	end,
 }
-EventUtil = { ContinueOnAddOnLoaded = function() end }
+-- The world map, which fails on any write (tests/strict_map.lua); the corner overlay attaches once it loads.
+local Kit = dofile("tests/strict_map.lua")
+Kit.mapID = 100
+Enum = Enum or {}
+WorldMapFrame, CreateFrame, Mixin, CreateFromMixins = Kit.map, Kit.CreateFrame, nil, nil
+do
+	local env = {}
+	Kit.Install(env)
+	Mixin, CreateFromMixins, Saturate, Lerp = env.Mixin, env.CreateFromMixins, env.Saturate, env.Lerp
+end
+local onMapLoaded = {}
+EventUtil = {
+	ContinueOnAddOnLoaded = function(addon, callback)
+		assert(addon == "Blizzard_WorldMap")
+		onMapLoaded[#onMapLoaded + 1] = callback
+	end,
+}
 AlertFrame = {
 	AddQueuedAlertFrameSubSystem = function()
 		return { AddAlert = function() end }
@@ -228,11 +244,38 @@ for _, file in ipairs({
 	"Integrations/Navigate.lua",
 	"Core/ZoneCompletion.lua",
 	"UI/ForeverFamily.lua",
+	"UI/MapCanvas.lua",
 	"UI/Completion.lua",
 	"Core/API.lua",
 }) do
 	assert(loadfile(file))("LegacyForever", ns)
 end
+-- The zone's corner on the world map: a frame of ours, never one of the map's overlay frames or data providers.
+check(#onMapLoaded == 1, "the corner overlay waits for the world map to load")
+onMapLoaded[1]()
+local overlay = Kit.Made("LegacyForeverZoneOverlayTemplate")[1]
+check(overlay and overlay:GetParent() == Kit.map, "the corner overlay is a frame of ours on the map")
+local color = {
+	GetRGB = function()
+		return 1, 1, 1
+	end,
+	WrapTextInColorCode = function(_, text)
+		return text
+	end,
+}
+NORMAL_FONT_COLOR, GREEN_FONT_COLOR, HIGHLIGHT_FONT_COLOR, GRAY_FONT_COLOR = color, color, color, color
+overlay:Hide()
+local errorsBefore = #errors
+Kit.Tick()
+check(overlay.shown and overlay.Title.text:find("Elwynn Forest", 1, true), "opening the map fills in its corner")
+Kit.mapID = 200
+Kit.Tick()
+check(not overlay.shown, "turning to a map with nothing to count hides the corner")
+Kit.mapID = 100
+Kit.Tick()
+check(overlay.shown, "turning back shows it again")
+check(#errors == errorsBefore, "the corner draws without an error")
+
 zoneTracker:OnBlockHeaderClick({ id = 100 }, "LeftButton")
 check(openedMap == 100, "a click on the zone's tracker header asks the game to open its map")
 local API = LegacyForever.API

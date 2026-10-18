@@ -2,7 +2,7 @@
 local _, ns = ...
 
 -- What the world map shows for a map ID, as plain tables: the objectives its button counts and its
--- menu lists, and what the pin provider draws. UI/Map.lua turns the answer into pins, textures and
+-- menu lists, and what the map draws. UI/Map.lua turns the answer into pins, textures and
 -- tooltips; tests/map_contents_spec.lua drives this file with stubbed client globals.
 ---@class LegacyMapContents
 local MapContents = {}
@@ -174,7 +174,7 @@ local function Shade(uiMapID)
 	return #shade.areas > 0 and shade or nil
 end
 
--- What the pin provider draws. A continent gets zone badges, which follow zone completion's "On the
+-- What the map draws (UI/Map.lua). A continent gets zone badges, which follow zone completion's "On the
 -- world map" switch, so turning it off leaves continents bare. A zone gets a pin per place-bound
 -- objective (bosses, dungeons, quests) and its undiscovered areas shaded; exploration is never
 -- pinned, a shaded area carrying its Legacy step for the hover instead. "Show dungeon and raid entrances"

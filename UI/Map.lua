@@ -3,7 +3,6 @@ local _, ns = ...
 local L = ns.L
 
 local PIN_TEMPLATE = "LegacyForeverPinTemplate"
-local AREA_TEMPLATE = "LegacyForeverAreaPinTemplate"
 -- Unseen ground reads darker, the fog-of-war convention (a warm tint vanished on the
 -- parchment); darker still under the mouse.
 local AREA_ALPHA, AREA_HOVER_ALPHA = 0.25, 0.4
@@ -344,339 +343,294 @@ function LegacyForeverMapButtonMixin:OnHide()
 	end
 end
 
---[[ Pins: one per unfinished objective the data can place on this map.
-     Built once Blizzard_WorldMap (and so MapCanvas) is loaded; the XML template
-     resolves its mixin by name when the first pin is created. ]]
+--[[ Pins: one per unfinished objective the data can place on this map, on frames of our own (UI/MapCanvas.lua) ]]
 
-local function DefinePinMixin()
-	---@class LegacyForeverPinMixin : Frame, MapCanvasPinMixin
-	---@field Icon Texture
-	---@field Portal Texture
-	---@field Highlight Texture
-	---@field group? LegacyGroup
-	---@field objective? LegacyObjective
-	---@field zone? LegacyContinentZone
-	LegacyForeverPinMixin = CreateFromMixins(MapCanvasPinMixin)
+---@class LegacyObjectivePin : LegacyCanvasPin
+---@field Icon Texture
+---@field Portal Texture
+---@field Highlight Texture
+---@field group? LegacyGroup
+---@field objective? LegacyObjective
+---@field zone? LegacyContinentZone
+local ObjectivePin = CreateFromMixins(ns.MapCanvas.PinMixin)
 
-	-- Setup lives here rather than in OnLoad, as Blizzard's own map pins do:
-	-- this client doesn't reliably run OnLoad for addon pins.
-	---@param group LegacyGroup?
-	---@param objective LegacyObjective?
-	---@param zone LegacyContinentZone?
-	function LegacyForeverPinMixin:OnAcquired(group, objective, zone)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_AREA_POI")
-		self.group = group
-		self.objective = objective
-		self.zone = zone
-		self:SetScalingLimits(1, 1.0, 1.2)
-		-- Closing the map hides the pin without an OnMouseLeave.
-		self:SetScript("OnHide", self.OnMouseLeave)
-		-- Pins are pooled, so this is set on every acquire. A zone badge lets the click open the zone below it.
-		self:SetMouseClickEnabled(self:Destination() ~= nil)
-		self:Layout(objective and objective.entry)
-		if zone then
-			self:SetPosition(zone.x, zone.y)
-		elseif objective then
-			self:SetPosition(objective.entry.x, objective.entry.y)
-		end
-		self:ApplyCurrentScale()
+function ObjectivePin:OnLoad()
+	self.takesMouse = true
+	self:UseFrameLevelType("PIN_FRAME_LEVEL_AREA_POI")
+	self:SetScalingLimits(1, 1.0, 1.2)
+end
+
+---@param group LegacyGroup?
+---@param objective LegacyObjective?
+---@param zone LegacyContinentZone?
+function ObjectivePin:OnAcquired(group, objective, zone)
+	self.group = group
+	self.objective = objective
+	self.zone = zone
+	-- A zone badge lets the click open the zone below it.
+	self.clicks = self:Destination() ~= nil
+	self:Layout(objective and objective.entry)
+	if zone then
+		self:SetPosition(zone.x, zone.y)
+	elseif objective then
+		self:SetPosition(objective.entry.x, objective.entry.y)
 	end
+end
 
-	-- At an entrance: the retail portal the map already uses there, with a small shield on its corner, so the
-	-- entrance still reads as one and the Legacy step as a badge on it. Anywhere else: the shield alone.
-	---@param entry LegacyEntry?
-	function LegacyForeverPinMixin:Layout(entry)
-		local instance = entry and entry.instance
-		self.Icon:ClearAllPoints()
-		self.Highlight:ClearAllPoints()
-		self.Portal:SetShown(instance ~= nil)
-		if entry and instance then
-			local atlas = entry.raid and "Raid" or "Dungeon"
-			self:SetSize(32, 32)
-			self.Portal:SetAtlas(atlas) -- art-ok: both portals are square atlases, over the 32x32 pin
-			ns.Art.Fit(self.Icon, POINTS_ICON, 12, 17)
-			self.Icon:SetPoint("BOTTOMRIGHT", 2, -2)
-			self.Highlight:SetAtlas(atlas) -- art-ok: the portal again, over the square Portal texture
-			self.Highlight:SetAllPoints(self.Portal)
-		else
-			self:SetSize(20, 20)
-			ns.Art.Fit(self.Icon, POINTS_ICON, 14, 20)
-			self.Icon:SetPoint("CENTER")
-			self.Highlight:SetAtlas(POINTS_ICON) -- art-ok: the shield again, over the Icon that Art.Fit sized
-			self.Highlight:SetAllPoints(self.Icon)
-		end
+-- At an entrance: the retail portal the map already uses there, with a small shield on its corner, so the
+-- entrance still reads as one and the Legacy step as a badge on it. Anywhere else: the shield alone.
+---@param entry LegacyEntry?
+function ObjectivePin:Layout(entry)
+	local instance = entry and entry.instance
+	self.Icon:ClearAllPoints()
+	self.Highlight:ClearAllPoints()
+	self.Portal:SetShown(instance ~= nil)
+	if entry and instance then
+		local atlas = entry.raid and "Raid" or "Dungeon"
+		self:SetSize(32, 32)
+		self.Portal:SetAtlas(atlas) -- art-ok: both portals are square atlases, over the 32x32 pin
+		ns.Art.Fit(self.Icon, POINTS_ICON, 12, 17)
+		self.Icon:SetPoint("BOTTOMRIGHT", 2, -2)
+		self.Highlight:SetAtlas(atlas) -- art-ok: the portal again, over the square Portal texture
+		self.Highlight:SetAllPoints(self.Portal)
+	else
+		self:SetSize(20, 20)
+		ns.Art.Fit(self.Icon, POINTS_ICON, 14, 20)
+		self.Icon:SetPoint("CENTER")
+		self.Highlight:SetAtlas(POINTS_ICON) -- art-ok: the shield again, over the Icon that Art.Fit sized
+		self.Highlight:SetAllPoints(self.Icon)
 	end
+end
 
-	-- Where a click takes the player: only an objective with coordinates in the data, on the zone map they are for.
-	---@return number? uiMapID
-	---@return number? x
-	---@return number? y
-	function LegacyForeverPinMixin:Destination()
-		local entry = self.objective and self.objective.entry
-		if self.group and entry and entry.x and entry.y then
-			return self.group.uiMapID, entry.x, entry.y
-		end
+-- Where a click takes the player: only an objective with coordinates in the data, on the zone map they are for.
+---@return number? uiMapID
+---@return number? x
+---@return number? y
+function ObjectivePin:Destination()
+	local entry = self.objective and self.objective.entry
+	if self.group and entry and entry.x and entry.y then
+		return self.group.uiMapID, entry.x, entry.y
 	end
+end
 
-	function LegacyForeverPinMixin:OnMouseEnter()
-		self.Highlight:Show()
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		if self.zone then
-			AddZoneTooltip(GameTooltip, self.zone)
-		elseif self.group and self.objective then
-			AddPinTooltip(GameTooltip, self.group, self.objective)
-			if self:Destination() then
-				GameTooltip_AddInstructionLine(GameTooltip, ns.NavigateHint())
-				local companion = ns.CompanionHint()
-				if companion then
-					GameTooltip_AddDisabledLine(GameTooltip, companion)
-				end
+function ObjectivePin:OnMouseEnter()
+	self.Highlight:Show()
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	if self.zone then
+		AddZoneTooltip(GameTooltip, self.zone)
+	elseif self.group and self.objective then
+		AddPinTooltip(GameTooltip, self.group, self.objective)
+		if self:Destination() then
+			GameTooltip_AddInstructionLine(GameTooltip, ns.NavigateHint())
+			local companion = ns.CompanionHint()
+			if companion then
+				GameTooltip_AddDisabledLine(GameTooltip, companion)
 			end
 		end
-		GameTooltip:Show()
 	end
+	GameTooltip:Show()
+end
 
-	---@param button string
-	function LegacyForeverPinMixin:OnMouseClickAction(button)
-		local uiMapID, x, y = self:Destination()
-		if button == "LeftButton" and uiMapID and x and y and self.objective then
-			ns.Navigate(uiMapID, x, y, self.objective.text)
+---@param button string
+function ObjectivePin:OnMouseClickAction(button)
+	local uiMapID, x, y = self:Destination()
+	if button == "LeftButton" and uiMapID and x and y and self.objective then
+		ns.Navigate(uiMapID, x, y, self.objective.text)
+	end
+end
+
+function ObjectivePin:OnMouseLeave()
+	self.Highlight:Hide()
+	if GameTooltip:GetOwner() == self then
+		GameTooltip:Hide()
+	end
+end
+
+-- One frame per zone map holding every undiscovered area, drawn from the same map tiles Blizzard reveals on
+-- discovery (see MapExplorationPinMixin:RefreshOverlays). It never takes the mouse, which would swallow the map's own
+-- clicks (right-click to zoom out, drag to pan): while the cursor is on bare map, the area under it is polled
+-- (MapContents.AreaAt).
+---@class LegacyAreaPin : LegacyCanvasPin
+---@field textures LegacyTexturePool
+---@field shade? LegacyShade
+---@field hovered? LegacyShadedArea
+---@field cursorX? number
+---@field cursorY? number
+---@field drawn table<string, Texture[]>
+local AreaPin = CreateFromMixins(ns.MapCanvas.PinMixin)
+
+function AreaPin:OnLoad()
+	self:SetIgnoreGlobalPinScale(true)
+	self:UseFrameLevelType("PIN_FRAME_LEVEL_MAP_EXPLORATION")
+	self.textures = CreateTexturePool(self, "OVERLAY")
+	self.drawn = {}
+	-- The area scan runs only when the cursor moves over the canvas; the position is in canvas pixels, so a zoom or
+	-- pan under a still cursor counts as a move.
+	self:SetScript("OnUpdate", function()
+		if self:GetMap():IsCanvasMouseFocus() then
+			local x, y = self:CursorPosition()
+			if x ~= self.cursorX or y ~= self.cursorY then
+				self.cursorX, self.cursorY = x, y
+				self:HoverAt(x, y)
+			end
+		else
+			self.cursorX, self.cursorY = nil, nil
+			if self.hovered then
+				self:Highlight(nil)
+			end
 		end
-	end
+	end)
+	-- The polling stops while the map is closed, so the hovered area's shade and tooltip go now.
+	self:SetScript("OnHide", function()
+		self:Highlight(nil)
+	end)
+end
 
-	function LegacyForeverPinMixin:OnMouseLeave()
-		self.Highlight:Hide()
+function AreaPin:OnReleased()
+	self:Highlight(nil)
+	self.textures:ReleaseAll()
+	self.shade, self.drawn = nil, {}
+	self.cursorX, self.cursorY = nil, nil
+end
+
+local masks = setmetatable({}, { __mode = "k" })
+
+---@param tile LegacyShadeTile
+---@return Texture
+function AreaPin:DrawTile(tile)
+	local texture = self.textures:Acquire()
+	if masks[texture] then
+		texture:RemoveMaskTexture(masks[texture])
+		masks[texture] = nil
+	end
+	local mask = self:GetMap():GetMaskTexture()
+	if mask and self:GetMap():GetUseMaskTexture() then
+		texture:AddMaskTexture(mask)
+		masks[texture] = mask
+	end
+	-- art-ok: a map tile at the size and crop the generated data gives it, and the pool only ever draws files
+	texture:SetTexture(tile.file, nil, nil, "TRILINEAR")
+	texture:SetSize(tile.width, tile.height)
+	texture:SetTexCoord(0, tile.u, 0, tile.v)
+	texture:ClearAllPoints()
+	texture:SetPoint("TOPLEFT", tile.x, -tile.y)
+	texture:SetVertexColor(0, 0, 0, AREA_ALPHA)
+	texture:Show()
+	return texture
+end
+
+---@param shade LegacyShade
+function AreaPin:OnAcquired(shade)
+	self:SetSize(self:GetMap():GetCanvas():GetSize())
+	self:SetPosition(0.5, 0.5)
+	self.shade = shade
+	for _, shaded in ipairs(shade.areas) do
+		local textures = {}
+		for _, tile in ipairs(shaded.tiles) do
+			textures[#textures + 1] = self:DrawTile(tile)
+		end
+		self.drawn[shaded.area.key] = textures
+	end
+end
+
+-- The cursor in canvas pixels, the space overlay offsets are in.
+---@return number x
+---@return number y
+function AreaPin:CursorPosition()
+	local scale = self:GetEffectiveScale()
+	local x, y = GetCursorPosition()
+	return x / scale - self:GetLeft(), self:GetTop() - y / scale
+end
+
+---@param x number
+---@param y number
+function AreaPin:HoverAt(x, y)
+	local shaded = self.shade and ns.MapContents.AreaAt(self.shade, x, y) or nil
+	if shaded ~= self.hovered then
+		self:Highlight(shaded)
+	end
+end
+
+---@param shaded LegacyShadedArea?
+function AreaPin:Highlight(shaded)
+	if self.hovered then
+		for _, texture in ipairs(self.drawn[self.hovered.area.key]) do
+			texture:SetVertexColor(0, 0, 0, AREA_ALPHA)
+		end
+		-- Only our own tooltip: a pin the cursor just moved onto has already shown its own.
 		if GameTooltip:GetOwner() == self then
 			GameTooltip:Hide()
 		end
 	end
-end
-
-local function DefineAreaPinMixin()
-	-- One pin per zone map holding every undiscovered area, drawn from the same map
-	-- tiles Blizzard reveals on discovery (see MapExplorationPinMixin:RefreshOverlays).
-	---@class LegacyForeverAreaPinMixin : Frame, MapCanvasPinMixin
-	---@field textures? LegacyTexturePool
-	---@field shade? LegacyShade
-	---@field hovered? LegacyShadedArea
-	---@field cursorX? number
-	---@field cursorY? number
-	---@field drawn table<string, Texture[]>
-	LegacyForeverAreaPinMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	-- Initialize per-pin drawing state before the first render; the pool reset callback handles later reuse.
-	-- Hover is polled rather than caught by a mouse-enabled frame, which would swallow the
-	-- map's own clicks (right-click to zoom out, drag to pan). While the cursor is on bare map
-	-- (no pin or button above it), the area under it is picked by MapContents.AreaAt.
-	function LegacyForeverAreaPinMixin:CreatePools()
-		self:SetIgnoreGlobalPinScale(true)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_MAP_EXPLORATION")
-		self:EnableMouse(false)
-		self.textures = CreateTexturePool(self, "OVERLAY")
-		-- The area scan runs only when the cursor moves over the canvas; the position is in canvas
-		-- pixels, so a zoom or pan under a still cursor counts as a move.
-		self:SetScript("OnUpdate", function()
-			if self:GetMap():IsCanvasMouseFocus() then
-				local x, y = self:CursorPosition()
-				if x ~= self.cursorX or y ~= self.cursorY then
-					self.cursorX, self.cursorY = x, y
-					self:HoverAt(x, y)
-				end
-			else
-				self.cursorX, self.cursorY = nil, nil
-				if self.hovered then
-					self:Highlight(nil)
-				end
-			end
-		end)
-		-- The polling stops while the map is closed, so the hovered area's shade and tooltip go now.
-		self:SetScript("OnHide", function()
-			self:Highlight(nil)
-		end)
+	self.hovered = shaded
+	if not shaded then
+		return
 	end
-
-	function LegacyForeverAreaPinMixin:ReleaseAreas()
-		if self.textures then
-			self:Highlight(nil)
-			self.textures:ReleaseAll()
-		end
-		self.shade, self.drawn = nil, {}
-		self.cursorX, self.cursorY = nil, nil
+	for _, texture in ipairs(self.drawn[shaded.area.key]) do
+		texture:SetVertexColor(0, 0, 0, AREA_HOVER_ALPHA)
 	end
-
-	function LegacyForeverAreaPinMixin:OnReleased()
-		MapCanvasPinMixin.OnReleased(self)
-		self:ReleaseAreas()
+	GameTooltip:SetOwner(self, "ANCHOR_CURSOR_RIGHT")
+	local objective = shaded.objective
+	if objective then
+		AddPinTooltip(GameTooltip, objective.group, objective.objective)
+	else
+		GameTooltip_SetTitle(GameTooltip, shaded.area.name)
+		GameTooltip_AddNormalLine(GameTooltip, KIND_LABEL.explore)
 	end
-
-	local masks = setmetatable({}, { __mode = "k" })
-
-	---@param tile LegacyShadeTile
-	---@return Texture
-	function LegacyForeverAreaPinMixin:DrawTile(tile)
-		local texture = self.textures:Acquire()
-		if masks[texture] then
-			texture:RemoveMaskTexture(masks[texture])
-			masks[texture] = nil
-		end
-		local mask = self:GetMap():GetMaskTexture()
-		if mask and self:GetMap():GetUseMaskTexture() then
-			texture:AddMaskTexture(mask)
-			masks[texture] = mask
-		end
-		-- art-ok: a map tile at the size and crop the generated data gives it, and the pool only ever draws files
-		texture:SetTexture(tile.file, nil, nil, "TRILINEAR")
-		texture:SetSize(tile.width, tile.height)
-		texture:SetTexCoord(0, tile.u, 0, tile.v)
-		texture:ClearAllPoints()
-		texture:SetPoint("TOPLEFT", tile.x, -tile.y)
-		texture:SetVertexColor(0, 0, 0, AREA_ALPHA)
-		texture:Show()
-		return texture
-	end
-
-	---@param shade LegacyShade
-	function LegacyForeverAreaPinMixin:OnAcquired(shade)
-		if not self.textures then
-			self:CreatePools()
-		end
-		-- Start each acquisition with empty drawing and hover state.
-		self:ReleaseAreas()
-		self:SetSize(self:GetMap():GetCanvas():GetSize())
-		self:SetPosition(0.5, 0.5)
-		self.shade = shade
-		for _, shaded in ipairs(shade.areas) do
-			local textures = {}
-			for _, tile in ipairs(shaded.tiles) do
-				textures[#textures + 1] = self:DrawTile(tile)
-			end
-			self.drawn[shaded.area.key] = textures
-		end
-	end
-end
-
--- Hover is polled by the OnUpdate CreatePools installs; see the note there.
-local function DefineAreaPinHover()
-	-- The cursor in canvas pixels, the space overlay offsets are in.
-	---@return number x
-	---@return number y
-	function LegacyForeverAreaPinMixin:CursorPosition()
-		local scale = self:GetEffectiveScale()
-		local x, y = GetCursorPosition()
-		return x / scale - self:GetLeft(), self:GetTop() - y / scale
-	end
-
-	---@param x number
-	---@param y number
-	function LegacyForeverAreaPinMixin:HoverAt(x, y)
-		local shaded = self.shade and ns.MapContents.AreaAt(self.shade, x, y) or nil
-		if shaded ~= self.hovered then
-			self:Highlight(shaded)
-		end
-	end
-
-	---@param shaded LegacyShadedArea?
-	function LegacyForeverAreaPinMixin:Highlight(shaded)
-		if self.hovered then
-			for _, texture in ipairs(self.drawn[self.hovered.area.key]) do
-				texture:SetVertexColor(0, 0, 0, AREA_ALPHA)
-			end
-			-- Only our own tooltip: a pin the cursor just moved onto has already shown its own.
-			if GameTooltip:GetOwner() == self then
-				GameTooltip:Hide()
-			end
-		end
-		self.hovered = shaded
-		if not shaded then
-			return
-		end
-		for _, texture in ipairs(self.drawn[shaded.area.key]) do
-			texture:SetVertexColor(0, 0, 0, AREA_HOVER_ALPHA)
-		end
-		GameTooltip:SetOwner(self, "ANCHOR_CURSOR_RIGHT")
-		local objective = shaded.objective
-		if objective then
-			AddPinTooltip(GameTooltip, objective.group, objective.objective)
-		else
-			GameTooltip_SetTitle(GameTooltip, shaded.area.name)
-			GameTooltip_AddNormalLine(GameTooltip, KIND_LABEL.explore)
-		end
-		GameTooltip:Show()
-	end
-end
-
----@return MapCanvasDataProviderMixin
-local function CreatePinProvider()
-	DefinePinMixin()
-	DefineAreaPinMixin()
-	DefineAreaPinHover()
-	---@class LegacyMapProvider: MapCanvasDataProviderMixin
-	---@field ResumeAfterCombat fun(self: LegacyMapProvider)
-	local provider = CreateFromMixins(MapCanvasDataProviderMixin) --[[@as LegacyMapProvider]]
-	local refreshPending = false
-
-	-- MapCanvas calls providers while combat lockdown is active too.  Acquiring a pin
-	-- makes the native pin manager inspect secure mouse state, which taints the map in
-	-- combat.  Hide our old pins (a safe frame operation), then rebuild after combat.
-	local function HidePins(map)
-		for _, template in ipairs({ PIN_TEMPLATE, AREA_TEMPLATE }) do
-			for pin in map:EnumeratePinsByTemplate(template) do
-				pin:SetShown(false)
-			end
-		end
-	end
-
-	function provider:RemoveAllData()
-		self:GetMap():RemoveAllPinsByTemplate(PIN_TEMPLATE)
-		self:GetMap():RemoveAllPinsByTemplate(AREA_TEMPLATE)
-	end
-
-	function provider:RefreshAllData()
-		local map = self:GetMap()
-		if InCombatLockdown() then
-			refreshPending = true
-			HidePins(map)
-			return
-		end
-		refreshPending = false
-		self:RemoveAllData()
-		local drawn = ns.MapContents.Drawn(map:GetMapID())
-		for _, zone in ipairs(drawn.badges) do
-			map:AcquirePin(PIN_TEMPLATE, nil, nil, zone)
-		end
-		for _, pin in ipairs(drawn.pins) do
-			map:AcquirePin(PIN_TEMPLATE, pin.group, pin.objective)
-		end
-		if drawn.shade then
-			map:AcquirePin(AREA_TEMPLATE, drawn.shade)
-		end
-	end
-
-	function provider:ResumeAfterCombat()
-		if refreshPending and self:GetMap():IsShown() then
-			self:RefreshAllData()
-		end
-	end
-
-	return provider
+	GameTooltip:Show()
 end
 
 --[[ Wiring ]]
 
 local function Attach()
 	local map = WorldMapFrame
-	local provider = CreatePinProvider()
-	map:AddDataProvider(provider)
+	local MapCanvas = ns.MapCanvas
+	local pins = MapCanvas.Pool(map, ObjectivePin, { template = PIN_TEMPLATE, marker = "legacy" })
+	local areas = MapCanvas.Pool(map, AreaPin)
+	local refreshPending = false
+
+	-- Our pins are our own frames, but a pass-through change is refused in combat, so a redraw in combat hides them
+	-- and waits for its end.
+	local function Draw()
+		if InCombatLockdown() then
+			refreshPending = true
+			MapCanvas.SetShown(map, false)
+			return
+		end
+		refreshPending = false
+		pins:ReleaseAll()
+		areas:ReleaseAll()
+		local drawn = ns.MapContents.Drawn(map:GetMapID())
+		for _, zone in ipairs(drawn.badges) do
+			pins:Acquire(nil, nil, zone)
+		end
+		for _, pin in ipairs(drawn.pins) do
+			pins:Acquire(pin.group, pin.objective)
+		end
+		if drawn.shade then
+			areas:Acquire(drawn.shade)
+		end
+		MapCanvas.SetShown(map, true)
+	end
+
+	-- A button of our own in the map's top-right column; Refresh anchors it (see TopRightOffset).
+	local button = MapCanvas.FrameUnder("DropdownButton", map, "LegacyForeverMapButtonTemplate")
+	---@cast button LegacyForeverMapButtonMixin
+	button:SetFrameStrata("HIGH")
+
+	MapCanvas.Watch(map, function(_, what)
+		if what == "show" or what == "map" or what == "size" then
+			Draw()
+			button:Refresh()
+		end
+	end)
 	local events = CreateFrame("Frame")
 	events:RegisterEvent("PLAYER_REGEN_ENABLED")
 	events:SetScript("OnEvent", function()
-		---@diagnostic disable-next-line: undefined-field
-		provider:ResumeAfterCombat()
+		if refreshPending and map:IsShown() then
+			Draw()
+		end
 	end)
-
-	-- Refresh anchors it; see TopRightOffset.
-	---@type LegacyForeverMapButtonMixin
-	local button = map:AddOverlayFrame("LegacyForeverMapButtonTemplate", "DROPDOWNBUTTON")
 
 	function ns.OpenMapMenu()
 		if not button:IsMenuOpen() then
@@ -686,7 +640,7 @@ local function Attach()
 
 	function ns.RefreshMap()
 		if map:IsShown() then
-			provider:RefreshAllData()
+			Draw()
 			button:Refresh()
 		end
 	end

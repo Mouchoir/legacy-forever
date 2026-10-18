@@ -12,6 +12,12 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+- **Gamepad interface: the world map is only read.** The Legacy pins, the undiscovered-area shading, the map button and the zone's corner progress are now drawn on frames of Legacy Forever's own over the map, so the game's map no longer holds any of the addon's pins, data or buttons. With the gamepad interface on, the map walks its own pins and buttons from secure code every frame, and an addon's in that walk can block the game's controller actions. Everything works as before: tooltips, a mouse click to travel to an objective, a zone badge's click opening the zone, right-click to zoom out, and the entrance switch. Under the gamepad interface, a pin under the map cursor shows its tooltip; travelling there still takes a mouse click. Thanks to Polestar for the idea.
+
+### For addon authors
+
+- **`ForeverMapMarkers`.** The pins aren't the map's own any more, so `WorldMapFrame:EnumeratePinsByTemplate("LegacyForeverPinTemplate")` no longer finds them. `ForeverMapMarkers.LegacyForever(WorldMapFrame)` returns the shown pins as `{x, y, kind = "legacy"}` map fractions on the map being viewed.
+
 ## [0.10.1] - 2026-10-17
 
 - **The tracker sections now move clear of Questie's quest list.** With Questie's tracker on, its list was drawn over the Forever sections. They now sit below Questie's list, or above or beside it when there isn't room, and follow it when it moves, grows or hides; your quest tracker keeps its own place. Thanks to deathmvp1 for the report and berserkerlxl for finding the cause.
