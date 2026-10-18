@@ -12,6 +12,8 @@ optional `### For addon authors` subsection after a version's player bullets.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-10-18
+
 - **The map now shows which dungeons and raids you have already cleared.** A dungeon or raid entrance whose Legacy objective is finished is drawn faded, the way an explored area reads as explored, and its tooltip says *Already complete*; the ones still to do stay bright. *Show dungeon and raid entrances* still hides them all. Thanks to overspark, whose CurseForge comment on the entrance pins prompted it.
 - **Gamepad interface: the world map is only read.** The Legacy pins, the undiscovered-area shading, the map button and the zone's corner progress are now drawn on frames of Legacy Forever's own over the map, so the game's map no longer holds any of the addon's pins, data or buttons. With the gamepad interface on, the map walks its own pins and buttons from secure code every frame, and an addon's in that walk can block the game's controller actions. Everything works as before: tooltips, a mouse click to travel to an objective, a zone badge's click opening the zone, right-click to zoom out, and the entrance switch. Under the gamepad interface, a pin under the map cursor shows its tooltip; travelling there still takes a mouse click. Thanks to Polestar for the idea.
 
